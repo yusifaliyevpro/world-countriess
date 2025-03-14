@@ -1,0 +1,79 @@
+{
+  "Header": {
+    "homePage": "Ana Sayfa",
+    "about": "Hakkımda",
+    "LanguageSwitcher": {}
+  },
+  "Home": {
+    "Search": {
+      "placeholder": "Ülke adı ve ya Başkenti ile arayın",
+      "noResult": "Aramanızla eşleşen ülke bulunamadı"
+    },
+    "MetaData": {
+      "title": "Ana Sayfa"
+    }
+  },
+  "About": {
+    "aboutTheProject": "Proje Hakkında",
+    "text1": "Bu projeyi oluşturmaktaki asıl amacım kodlama becerilerimi geliştirmek ve portföyüme yeni bir proje eklemek. Bu siteyi oluştururken birçok araç kullandım.",
+    "toolsIUsed": "Kullandığım araçlar:",
+    "text2": "Tasarım ve işlevsellik açısından bu siteden ilham aldım: ",
+    "buyACoffee": "Projelerimi desteklemek için bana bir kahve ısmarlayabilirsin😊: ",
+    "myCodes": "Kodlarım GitHub hesabımda😺: ",
+    "MetaData": {
+      "title": "Hakkımda",
+      "description": "Bu projeyi oluşturmaktaki asıl amacım kodlama becerilerimi geliştirmek ve portföyüme yeni bir proje eklemek. Bu siteyi oluştururken birçok araç kullandım."
+    }
+  },
+  "NotFound": {
+    "title": "404 Sayfa bulunamadı",
+    "notFoundMessage": "Aradığınız sayfa bulunamadı"
+  },
+  "Country": {
+    "nativeName": "Yerel Ad:",
+    "region": "Bölge:",
+    "capital": "Bakşent:",
+    "currencies": "Para Birimi:",
+    "population": "Nüfus:",
+    "subRegion": "Alt Bölge:",
+    "topLevelDomain": "Üst düzey alan:",
+    "languages": "Diller:",
+    "borderCountries": "Sınır Ülkeleri:",
+    "Continents": {
+      "europe": "Avrupa",
+      "asia": "Asya",
+      "oceania": "Okyanusya",
+      "africa": "Afrika",
+      "americas": "Amerika",
+      "antarctic": "Antarktika"
+    },
+    "MoreInfo": {
+      "yes": "Evet",
+      "no": "Hayır",
+      "moreInfo": "Daha Fazla",
+      "officialName": "Resmi adı:",
+      "isCountryIndependent": "Müstəqil ölkədir:",
+      "timezones": "Zaman dilim(ler)i:",
+      "traffic": "Trafik:",
+      "rightHand": "Sağdan trafik",
+      "leftHand": "Soldan trafik",
+      "isCountryLandlocked": "Karayla çevrili bir ülkedir:",
+      "memberUN": "BM üyesidir",
+      "unAbbr": "Birleşmiş Milletler Örgütü",
+      "showOnMap": "Haritada göstermek için tıklayın",
+      "showCoatOfArmy": "Armayı görüntülemek için tıklayın"
+    },
+    "Share": {
+      "share": "Paylaş",
+      "other": "Diğer",
+      "flag": "Bayrak",
+      "imageIsPreparing": "Resim hazırlanıyor...",
+      "imageIsReady": "Resim hazır!",
+      "anErrorOccurred": "Bir hata oluştu",
+      "preparing": "Hazırlanıyor...",
+      "copied": "Kopyalandı",
+      "shareText": "{flag} {s}Ülke adı:{s} {country}\n\n📄 {s}Resmi adı:{s} {officialName}\n\n🏛️ {s}Başkent:{s} {capital}\n\n👩‍👩‍👧‍👦 {s}Nüfus:{s} {population}\n\n🌍 {s}Bölge:{s} {region}\n\n💵 {s}Para Birimi:{s} {currency}\n\n🆓 {s}Ülke bağımsız mı?:{s} {independent}\n\n {s}{country} hakkında daha fazla bilgi için bağlantıyı takip edin{s} ⬇️\n\n{baseURL}{pathname}"
+    },
+    "MetaData": {}
+  }
+}

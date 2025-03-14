@@ -1,0 +1,79 @@
+{
+  "Header": {
+    "homePage": "Ana Səhifə",
+    "about": "Haqqımda",
+    "LanguageSwitcher": {}
+  },
+  "Home": {
+    "Search": {
+      "placeholder": "Ölkə adı və ya Paytaxtı ilə axtarın",
+      "noResult": "Axtarışınıza uyğun ölkə tapılmadı"
+    },
+    "MetaData": {
+      "title": "Ana Səhifə"
+    }
+  },
+  "About": {
+    "aboutTheProject": "Layihə Haqqında",
+    "text1": "Bu layihəni yaratmaqda əsas məqsədim kodlaşdırma bacarıqlarımı təkmilləşdirmək və portfelimə yeni layihə əlavə etməkdir. Bu saytı yaradarkən bir çox alətdən istifadə etdim.",
+    "toolsIUsed": "İstiafadə etdiyim alətlər:",
+    "text2": "Dizaynda və və funksionallıq cəhətdən bu saytdan ilham aldım: ",
+    "buyACoffee": "Layihələrimə dəstək olmaq üçün mənə kofe ala bilərsən😊: ",
+    "myCodes": "Kodlarım GitHub hesabımdadır😺: ",
+    "MetaData": {
+      "title": "Haqqımda",
+      "description": "Bu layihəni yaratmaqda əsas məqsədim kodlaşdırma bacarıqlarımı təkmilləşdirmək və portfelimə yeni layihə əlavə etməkdir. Bu saytı yaradarkən bir çox alətdən istifadə etdim."
+    }
+  },
+  "NotFound": {
+    "title": "404 Səhifə Tapılmadı",
+    "notFoundMessage": "Axtardığınız səhifə tapılmadı"
+  },
+  "Country": {
+    "nativeName": "Doğma Adı:",
+    "region": "Region:",
+    "capital": "Paytaxt:",
+    "currencies": "Valyuta:",
+    "population": "Əhali:",
+    "subRegion": "Alt Bölgə:",
+    "topLevelDomain": "Üst səviyyəli domen:",
+    "languages": "Dillər:",
+    "borderCountries": "Həmsərhəd Ölkələr:",
+    "Continents": {
+      "europe": "Avropa",
+      "asia": "Asiya",
+      "oceania": "Okeaniya",
+      "africa": "Afrika",
+      "americas": "Amerika",
+      "antarctic": "Antarktika"
+    },
+    "MoreInfo": {
+      "yes": "Bəli",
+      "no": "Xeyr",
+      "moreInfo": "Daha çox",
+      "officialName": "Rəsmi Adı:",
+      "isCountryIndependent": "Müstəqil ölkədir:",
+      "timezones": "Saat qurşaq(lar)ı:",
+      "traffic": "Trafik:",
+      "rightHand": "Sağdan trafik",
+      "leftHand": "Soldan trafik",
+      "isCountryLandlocked": "Dənizə çıxışı olmayan ölkədir:",
+      "memberUN": "BMT üzvüdür",
+      "unAbbr": "Birləşmiş Millətlər Təşkilatı",
+      "showOnMap": "Xəritədə göstərmək üçün klikləyin",
+      "showCoatOfArmy": "Gerbi göstərmək üçün klikləyin"
+    },
+    "Share": {
+      "share": "Paylaş",
+      "other": "Digər",
+      "flag": "Bayraq",
+      "imageIsPreparing": "Şəkil hazırlanır...",
+      "imageIsReady": "Şəkil hazırdır!",
+      "anErrorOccurred": "Xəta baş verdi",
+      "preparing": "Hazırlanır...",
+      "copied": "Kopyalandı",
+      "shareText": "{flag} {s}Ölkə adı:{s} {country}\n\n📄 {s}Rəsmi adı:{s} {officialName}\n\n🏛️ {s}Paytaxt:{s} {capital}\n\n👩‍👩‍👧‍👦 {s}Əhali:{s} {population}\n\n🌍 {s}Region:{s} {region}\n\n💵 {s}Valyuta:{s} {currency}\n\n🆓 {s}Ölkə müstəqildir?:{s} {independent}\n\n {s}{country} haqqında ətraflı məlumat üçün linkə keçid edin{s} ⬇️\n\n{baseURL}{pathname}"
+    },
+    "MetaData": {}
+  }
+}
