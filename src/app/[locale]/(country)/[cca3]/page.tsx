@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ cca3: str
   if (!country) return notFound();
 
   return {
-    title: `${country ? country.name.common : "Loading..."}`,
+    title: country.name.common,
     url: `/${locale}/countries/${country.cca3}`,
     description: `${country.name.official}`,
     alternates: {
