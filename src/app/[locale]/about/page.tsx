@@ -181,14 +181,10 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
                 stiffness: 80,
               }}
             >
-              <Link
-                className="flex flex-col items-center justify-center gap-y-2 rounded-xl p-3 shadow-large drop-shadow-2xl hover:bg-gray-100"
-                href={tool.link}
-                target="_blank"
-              >
+              <p className="flex flex-col items-center justify-center gap-y-2 rounded-xl p-3 shadow-large drop-shadow-2xl hover:bg-gray-100">
                 <p>{tool.name}</p>
                 {tool.icon && tool.icon}
-              </Link>
+              </p>
             </motion.div>
           ))}
         </div>
