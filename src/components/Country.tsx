@@ -95,7 +95,7 @@ export default async function CountryUI({ country, locale }: { country: CountryF
                   <Link
                     key={i}
                     className="flex-1 select-none text-nowrap rounded-lg border-1 border-solid p-2 text-center hover:border-black hover:text-neutral-600 sm:flex-none"
-                    href={`${locale}/${country.cca3.toLowerCase()}`}
+                    href={`/${locale}/${country.cca3.toLowerCase()}`}
                   >
                     <p className="font-normal">{countries.getName(country.cca3, locale) || country.name.common}</p>
                   </Link>
