@@ -2,12 +2,13 @@
 
 import CoatofArmy from "./CoatofArmy";
 import MapModal from "./Map";
-import { CountryForPage } from "@/lib/types";
+import { countryPageFields } from "@/lib/fields";
 import { Accordion, AccordionItem } from "@heroui/accordion";
+import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import * as motion from "motion/react-client";
 import { useTranslations } from "next-intl";
 
-export function ShowMore({ country }: { country: CountryForPage }) {
+export function ShowMore({ country }: { country: CountryPicker<typeof countryPageFields> }) {
   const t = useTranslations("Country.MoreInfo");
   return (
     <motion.div

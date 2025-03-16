@@ -1,15 +1,16 @@
 import Share from "./Share";
 import { ShowMore } from "./ShowMore";
 import { Locales } from "@/i18n/routing";
-import { CountryForPage } from "@/lib/types";
+import { countryPageFields } from "@/lib/fields";
 import { getCountriesByCodes } from "@yusifaliyevpro/countries";
+import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import * as motion from "motion/react-client";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function CountryUI({ country, locale }: { country: CountryForPage; locale: Locales }) {
+export async function CountryUI({ country, locale }: { country: CountryPicker<typeof countryPageFields>; locale: Locales }) {
   if (!country) return null;
   const borderCountries = await getCountriesByCodes(
     { codes: country.borders as string[], fields: ["name", "cca3", "cca2"] },

@@ -1,8 +1,9 @@
 import { Breadcrumb } from "@/components/Breadcrumb";
-import CountryUI from "@/components/Country";
+import { CountryUI } from "@/components/CountryUI";
 import { CountrySkeleton } from "@/components/SuspenseLayouts";
 import { Locales } from "@/i18n/routing";
-import { getCountryForPage } from "@/lib/utils";
+import { countryPageFields } from "@/lib/fields";
+import { getCountryByCode } from "@yusifaliyevpro/countries";
 import countries from "i18n-iso-countries";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -10,7 +11,10 @@ import { Suspense } from "react";
 
 export async function generateMetadata({ params }: { params: Promise<{ cca3: string; locale: Locales }> }) {
   const { locale, cca3 } = await params;
-  const country = await getCountryForPage({ cca3 });
+  const country = await getCountryByCode(
+    { code: cca3, fields: countryPageFields },
+    { next: { revalidate: 30 * 24 * 3600 }, cache: "force-cache" },
+  );
   if (!country) return notFound();
 
   return {
@@ -55,7 +59,10 @@ export async function generateMetadata({ params }: { params: Promise<{ cca3: str
 export default async function CountryPage({ params }: { params: Promise<{ cca3: string; locale: Locales }> }) {
   const { locale, cca3 } = await params;
   setRequestLocale(locale);
-  const country = await getCountryForPage({ cca3 });
+  const country = await getCountryByCode(
+    { code: cca3, fields: countryPageFields },
+    { next: { revalidate: 30 * 24 * 3600 }, cache: "force-cache" },
+  );
   if (!country) return notFound();
 
   return (

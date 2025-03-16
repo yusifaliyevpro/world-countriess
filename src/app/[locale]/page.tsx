@@ -3,7 +3,8 @@ import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
 import { CountriesSkeleton } from "@/components/SuspenseLayouts";
 import { Locales, routing } from "@/i18n/routing";
-import { getCountriesForHomePage } from "@/lib/utils";
+import { countriesPageFields } from "@/lib/fields";
+import { getCountries } from "@yusifaliyevpro/countries";
 import * as motion from "motion/react-client";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -37,7 +38,10 @@ export function generateStaticParams() {
 export default async function Home({ params }: { params: Promise<{ locale: Locales }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const countries = await getCountriesForHomePage();
+  const countries = await getCountries(
+    { fields: countriesPageFields },
+    { next: { revalidate: 30 * 24 * 3600 }, cache: "force-cache" },
+  );
   if (!countries) notFound();
   const resultCount = Number(countries.length !== undefined ? countries.length : 0);
   return (

@@ -2,11 +2,12 @@
 
 import { Locales } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { CountryForPage } from "@/lib/types";
+import { countryPageFields } from "@/lib/fields";
 import { Button } from "@heroui/button";
 import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
 import { addToast, closeAll } from "@heroui/toast";
+import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
@@ -16,7 +17,7 @@ import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { BiDotsVerticalRounded, BiImageAlt, BiLink, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
 
-export default function Share({ country, locale }: { country: CountryForPage; locale: Locales }) {
+export default function Share({ country, locale }: { country: CountryPicker<typeof countryPageFields>; locale: Locales }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();

@@ -25,7 +25,7 @@
     "@lottiefiles/dotlottie-react": "^0.13.2",
     "@lottiefiles/react-lottie-player": "^3.6.0",
     "@next/third-parties": "^15.2.2",
-    "@yusifaliyevpro/countries": "^1.4.4",
+    "@yusifaliyevpro/countries": "^1.4.5",
     "autoprefixer": "^10.4.21",
     "framer-motion": "^12.5.0",
     "fuse.js": "^7.1.0",
@@ -61,6 +61,9 @@
     "onlyBuiltDependencies": [
       "@heroui/shared-utils",
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "@yusifaliyevpro/countries": "link:../../../../AppData/Local/pnpm/global/5/node_modules/@yusifaliyevpro/countries"
+    }
   }
 }

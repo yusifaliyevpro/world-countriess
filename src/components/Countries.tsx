@@ -1,8 +1,9 @@
 "use client";
 
 import { Locales } from "@/i18n/routing";
+import { countriesPageFields } from "@/lib/fields";
 import useStore from "@/lib/store";
-import { CountriesForHomePage } from "@/lib/types";
+import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import Fuse from "fuse.js";
 import countriesTranslation from "i18n-iso-countries";
 import azeLocale from "i18n-iso-countries/langs/az.json";
@@ -14,7 +15,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default function Countries({ countriess, locale }: { countriess: CountriesForHomePage; locale: Locales }) {
+export default function Countries({
+  countriess,
+  locale,
+}: {
+  countriess: CountryPicker<typeof countriesPageFields>[];
+  locale: Locales;
+}) {
   countriesTranslation.registerLocale(azeLocale);
   countriesTranslation.registerLocale(turLocale);
   const t = useTranslations("Country");
