@@ -61,9 +61,6 @@
     "onlyBuiltDependencies": [
       "@heroui/shared-utils",
       "sharp"
-    ],
-    "overrides": {
-      "@yusifaliyevpro/countries": "link:../../../../AppData/Local/pnpm/global/5/node_modules/@yusifaliyevpro/countries"
-    }
+    ]
   }
 }
