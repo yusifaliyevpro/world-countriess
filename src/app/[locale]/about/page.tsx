@@ -8,15 +8,6 @@ import { FaReact } from "react-icons/fa";
 import { SiNextdotjs, SiNextui, SiVercel } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 
-const ogImage = [
-  {
-    url: `https://world-countriess.vercel.app/World-countriess.png`,
-    width: 1400,
-    height: 1080,
-    alt: "World Countriess",
-  },
-];
-
 export async function generateMetadata() {
   const t = await getTranslations("About.MetaData");
   return {
@@ -55,7 +46,9 @@ export async function generateMetadata() {
     ],
     openGraph: {
       title: `${t("title")} | World Countriess`,
-      images: ogImage,
+      images: [
+        { url: `https://world-countriess.vercel.app/World-countriess.png`, width: 1400, height: 1080, alt: "World Countriess" },
+      ],
       url: `https://world-countriess.vercel.app/about`,
       description: t("description"),
       type: "website",
@@ -65,7 +58,7 @@ export async function generateMetadata() {
 
 const tools = [
   {
-    name: "NextJS 14.1.0",
+    name: "NextJS 15",
     link: "https://nextjs.org/",
     icon: <SiNextdotjs className="text-7xl" />,
   },
@@ -104,8 +97,13 @@ const tools = [
 const texts = [
   {
     t: "text2",
-    linkText: "Rest Countries API",
+    linkText: "Rest Countries Demo",
     link: "https://rest-api-countries-with-react.netlify.app/",
+  },
+  {
+    t: "text3",
+    linkText: "@yusifaliyevpro/countries",
+    link: "https://www.npmjs.com/package/@yusifaliyevpro/countries",
   },
   {
     t: "myCodes",
@@ -182,7 +180,7 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
               }}
             >
               <p className="flex flex-col items-center justify-center gap-y-2 rounded-xl p-3 shadow-large drop-shadow-2xl hover:bg-gray-100">
-                <p>{tool.name}</p>
+                <span>{tool.name}</span>
                 {tool.icon && tool.icon}
               </p>
             </motion.div>
