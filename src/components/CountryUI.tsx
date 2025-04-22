@@ -41,7 +41,7 @@ export async function CountryUI({ country, locale }: { country: CountryPicker<ty
               <p className="mt-12 font-bold">
                 {t("nativeName")}{" "}
                 <span className="font-normal">
-                  {country.name.nativeName ? Object.values(country.name.nativeName)[0].common : ""}
+                  {country.name.nativeName ? Object.values(country.name.nativeName)[0]?.common : ""}
                 </span>
               </p>
               <p className="font-bold">
@@ -56,8 +56,8 @@ export async function CountryUI({ country, locale }: { country: CountryPicker<ty
               </p>
               <p className="font-bold">
                 {t("currencies")}{" "}
-                <span className="font-normal">{country.currencies ? Object.values(country.currencies)[0].name : ""}</span>
-                <span>{country.currencies ? ` (${Object.values(country.currencies)[0].symbol})` : ""}</span>
+                <span className="font-normal">{country.currencies && Object.values(country.currencies)[0]?.name}</span>
+                <span>{country.currencies ? ` (${Object.values(country.currencies)[0]?.symbol})` : ""}</span>
               </p>
             </div>
             <div className="mb-8 flex flex-col gap-y-2">
