@@ -24,7 +24,7 @@
     "@heroui/toast": "^2.0.7",
     "@lottiefiles/dotlottie-react": "^0.13.4",
     "@lottiefiles/react-lottie-player": "^3.6.0",
-    "@next/third-parties": "^15.3.1",
+    "@next/third-parties": "^15.3.3",
     "@yusifaliyevpro/countries": "^2.0.2",
     "autoprefixer": "^10.4.21",
     "framer-motion": "^12.7.4",
