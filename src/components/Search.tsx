@@ -17,22 +17,22 @@ export default function Search() {
 
   useEffect(() => {
     setSearch(query);
-  }, [query]);
+  }, [query, setSearch]);
 
   useEffect(() => {
     if (resultCount === 0) {
       addToast({ title: t("noResult"), icon: <BiSearch className="text-2xl font-bold" /> });
     }
-  }, [resultCount]);
+  }, [t, resultCount]);
 
   return (
     <div>
-      <div className="mx-5 mt-6 mb-4 w-auto sm:mx-auto sm:w-[500px]">
+      <div className="mx-5 mb-4 mt-6 w-auto sm:mx-auto sm:w-[500px]">
         <Input
           classNames={{
             base: "h-11 sm:max-w-[100rem]",
             mainWrapper: "h-full",
-            input: "text-small text-md font-bold text-black",
+            input: "text-md text-small font-bold text-black",
             inputWrapper: "h-full font-normal text-white",
           }}
           placeholder={t("placeholder")}

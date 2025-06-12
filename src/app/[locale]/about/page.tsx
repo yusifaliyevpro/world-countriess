@@ -1,6 +1,7 @@
 import { Locales, locales } from "@/i18n/routing";
-import { BASE_URL } from "@/lib/constants";
+import { sharedMetdata } from "@/lib/shared-metadata";
 import * as motion from "motion/react-client";
+import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { BiLogoTailwindCss } from "react-icons/bi";
@@ -8,120 +9,35 @@ import { FaReact } from "react-icons/fa";
 import { SiNextdotjs, SiNextui, SiVercel } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("About.MetaData");
   return {
     title: t("title"),
-    url: "https://world-countriess.vercel.app/about",
     alternates: {
-      canonical: `${BASE_URL}/about`,
+      canonical: `/about`,
       languages: {
-        "en-US": `${BASE_URL}/en/about`,
-        "en-GB": `${BASE_URL}/en/about`,
-        "az-AZ": `${BASE_URL}/az/about`,
+        "en-US": `/en/about`,
+        "en-GB": `/en/about`,
+        "az-AZ": `/az/about`,
       },
     },
     description: t("description"),
-    keywords: [
-      "countries",
-      "world",
-      "World-Countriess",
-      "World Countriess",
-      "Vercel",
-      "Tailwind CSS",
-      "Rest Countries API",
-      "React-Icons",
-      "NextJS",
-      "NextUI",
-      "world countriess",
-      "countries information",
-      "country flags",
-      "yusifaliyevpro",
-      "filmisbest.com",
-      "filmisbest",
-      "yusifaliyevpro.com",
-      "yusifaliyev",
-      "yusif",
-      "aliyev",
-    ],
+    keywords: sharedMetdata.keywords,
     openGraph: {
       title: `${t("title")} | World Countriess`,
-      images: [
-        { url: `https://world-countriess.vercel.app/World-countriess.png`, width: 1400, height: 1080, alt: "World Countriess" },
-      ],
-      url: `https://world-countriess.vercel.app/about`,
-      description: t("description"),
-      type: "website",
+      images: sharedMetdata.openGraph.images,
+      url: "/about",
     },
   };
 }
-
-const tools = [
-  {
-    name: "NextJS 15",
-    link: "https://nextjs.org/",
-    icon: <SiNextdotjs className="text-7xl" />,
-  },
-  {
-    name: "Vercel Hosting",
-    link: "https://vercel.com/",
-    icon: <SiVercel className="text-7xl" />,
-  },
-  {
-    name: "Countries API",
-    link: "https://restcountries.com/",
-    icon: <TbApi className="text-7xl" />,
-  },
-  {
-    name: "NextUI",
-    link: "https://nextui.org/",
-    icon: <SiNextui className="text-8xl sm:text-7xl" />,
-  },
-  {
-    name: "Tailwind CSS",
-    link: "https://tailwindcss.com/",
-    icon: <BiLogoTailwindCss className="text-8xl text-[#38bdf8]" />,
-  },
-  {
-    name: "React Icons",
-    link: "https://react-icons.github.io/react-icons/",
-    icon: <FaReact className="text-8xl text-[#e91e63]" />,
-  },
-  {
-    name: "Framer Motion",
-    link: "https://www.framer.com/motion/",
-    icon: <TbBrandFramerMotion className="text-8xl" />,
-  },
-];
-
-const texts = [
-  {
-    t: "text2",
-    linkText: "Rest Countries Demo",
-    link: "https://rest-api-countries-with-react.netlify.app/",
-  },
-  {
-    t: "text3",
-    linkText: "@yusifaliyevpro/countries",
-    link: "https://www.npmjs.com/package/@yusifaliyevpro/countries",
-  },
-  {
-    t: "myCodes",
-    linkText: "World Countriess Repository",
-    link: "https://github.com/YusifAliyevPro/World-Countries",
-  },
-  {
-    t: "buyACoffee",
-    linkText: "kofe.al/@yusifaliyevpro",
-    link: "https://kofe.al/@yusifaliyevpro",
-  },
-];
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function About({ params }: { params: Promise<{ locale: Locales }> }) {
+type AboutPageProps = { params: Promise<{ locale: Locales }> };
+
+export default async function About({ params }: AboutPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("About");
@@ -208,3 +124,64 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
     </main>
   );
 }
+
+const tools = [
+  {
+    name: "NextJS 15",
+    link: "https://nextjs.org/",
+    icon: <SiNextdotjs className="text-7xl" />,
+  },
+  {
+    name: "Vercel Hosting",
+    link: "https://vercel.com/",
+    icon: <SiVercel className="text-7xl" />,
+  },
+  {
+    name: "Countries API",
+    link: "https://restcountries.com/",
+    icon: <TbApi className="text-7xl" />,
+  },
+  {
+    name: "NextUI",
+    link: "https://nextui.org/",
+    icon: <SiNextui className="text-8xl sm:text-7xl" />,
+  },
+  {
+    name: "Tailwind CSS",
+    link: "https://tailwindcss.com/",
+    icon: <BiLogoTailwindCss className="text-8xl text-[#38bdf8]" />,
+  },
+  {
+    name: "React Icons",
+    link: "https://react-icons.github.io/react-icons/",
+    icon: <FaReact className="text-8xl text-[#e91e63]" />,
+  },
+  {
+    name: "Framer Motion",
+    link: "https://www.framer.com/motion/",
+    icon: <TbBrandFramerMotion className="text-8xl" />,
+  },
+];
+
+const texts = [
+  {
+    t: "text2",
+    linkText: "Rest Countries Demo",
+    link: "https://rest-api-countries-with-react.netlify.app/",
+  },
+  {
+    t: "text3",
+    linkText: "@yusifaliyevpro/countries",
+    link: "https://www.npmjs.com/package/@yusifaliyevpro/countries",
+  },
+  {
+    t: "myCodes",
+    linkText: "World Countriess Repository",
+    link: "https://github.com/YusifAliyevPro/World-Countries",
+  },
+  {
+    t: "buyACoffee",
+    linkText: "kofe.al/@yusifaliyevpro",
+    link: "https://kofe.al/@yusifaliyevpro",
+  },
+];
