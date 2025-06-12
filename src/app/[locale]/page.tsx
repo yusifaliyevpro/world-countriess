@@ -4,18 +4,22 @@ import Search from "@/components/Search";
 import { CountriesSkeleton } from "@/components/SuspenseLayouts";
 import { Locales, routing } from "@/i18n/routing";
 import { countriesPageFields } from "@/lib/fields";
+import { sharedMetdata } from "@/lib/shared-metadata";
 import { getCountries } from "@yusifaliyevpro/countries";
 import * as motion from "motion/react-client";
+import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locales }> }) {
+type HomePageProps = { params: Promise<{ locale: Locales }> };
+
+export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations("Home.MetaData");
+  const t = await getTranslations();
   return {
-    title: `${t("title")} | World Countriess`,
-    url: `/${locale}`,
+    title: `${t("Home.MetaData.title")} | World Countriess`,
+    description: t("About.MetaData.description"),
     alternates: {
       canonical: `/`,
       languages: {
@@ -25,7 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
       },
     },
     openGraph: {
-      title: `${t("title")} | World Countriess`,
+      ...sharedMetdata.openGraph,
+      title: `${t("Home.MetaData.title")} | World Countriess`,
+      description: t("About.MetaData.description"),
       url: `/${locale}`,
     },
   };
@@ -35,7 +41,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({ params }: { params: Promise<{ locale: Locales }> }) {
+export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
   const countries = await getCountries(

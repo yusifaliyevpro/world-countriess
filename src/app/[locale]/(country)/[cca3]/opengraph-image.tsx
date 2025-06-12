@@ -1,4 +1,4 @@
-import { Locales } from "@/i18n/routing";
+import { CountryPageProps } from "./page";
 import { getCountryByCode } from "@yusifaliyevpro/countries";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
@@ -12,7 +12,7 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: Promise<{ cca3: string; locale: Locales }> }) {
+export default async function Image({ params }: CountryPageProps) {
   const { cca3 } = await params;
   const country = await getCountryByCode(
     { code: cca3, fields: ["flags", "name"] },
@@ -27,6 +27,7 @@ export default async function Image({ params }: { params: Promise<{ cca3: string
     (
       <div tw="relative flex w-full h-full items-center justify-center">
         <div tw="absolute flex inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img alt={country.name.common} height={600} src={country.flags.svg} tw=" flex flex-1" width={1200} />
           <div tw="absolute flex inset-0 bg-black bg-opacity-70 z-10" />
         </div>

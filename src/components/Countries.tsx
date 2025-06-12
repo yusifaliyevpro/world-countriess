@@ -51,7 +51,7 @@ export default function Countries({
   }
   useEffect(() => {
     setResultCount(renderedCountries.length);
-  }, [renderedCountries]);
+  }, [renderedCountries, setResultCount]);
   return (
     <div className="justify-content-center mx-4 flex flex-wrap items-center justify-center gap-x-10">
       <AnimatePresence mode="wait">

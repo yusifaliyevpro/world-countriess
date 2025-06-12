@@ -3,13 +3,17 @@ import { CountryUI } from "@/components/CountryUI";
 import { CountrySkeleton } from "@/components/SuspenseLayouts";
 import { Locales } from "@/i18n/routing";
 import { countryPageFields } from "@/lib/fields";
+import { sharedMetdata } from "@/lib/shared-metadata";
 import { getCountryByCode } from "@yusifaliyevpro/countries";
 import countries from "i18n-iso-countries";
+import { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-export async function generateMetadata({ params }: { params: Promise<{ cca3: string; locale: Locales }> }) {
+export type CountryPageProps = { params: Promise<{ cca3: string; locale: Locales }> };
+
+export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   const { locale, cca3 } = await params;
   const country = await getCountryByCode(
     { code: cca3, fields: countryPageFields },
@@ -19,7 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ cca3: str
 
   return {
     title: country.name.common,
-    url: `/${locale}/countries/${country.cca3}`,
     description: `${country.name.official}`,
     alternates: {
       canonical: `/countries/${country.cca3}`,
@@ -29,34 +32,16 @@ export async function generateMetadata({ params }: { params: Promise<{ cca3: str
         "az-AZ": `/az/countries/${country.cca3}`,
       },
     },
-    keywords: [
-      "countries",
-      `${country.name.common}`,
-      `${country.name.official}`,
-      "world",
-      "World-Countriess",
-      "World Countriess",
-      "world countriess",
-      "countries information",
-      "country flags",
-      "filmisbest.com",
-      "filmisbest",
-      "yusifaliyevpro",
-      "yusifaliyevpro.com",
-      "yusifaliyev",
-      "yusif",
-      "aliyev",
-    ],
+    keywords: [`${country.name.common}`, `${country.name.official}`, ...sharedMetdata.keywords],
     openGraph: {
       title: `${country.name.common} | World Countriess`,
       url: `/${locale}/countries/${country.cca3}`,
       description: `${country.name.official}`,
-      type: "website",
     },
   };
 }
 
-export default async function CountryPage({ params }: { params: Promise<{ cca3: string; locale: Locales }> }) {
+export default async function CountryPage({ params }: CountryPageProps) {
   const { locale, cca3 } = await params;
   setRequestLocale(locale);
   const country = await getCountryByCode(
