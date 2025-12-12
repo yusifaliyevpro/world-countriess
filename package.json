@@ -33,7 +33,7 @@
     "fuse.js": "^7.1.0",
     "i18n-iso-countries": "^7.14.0",
     "motion": "^12.17.3",
-    "next": "15.3.3",
+    "next": "15.3.8",
     "next-intl": "^4.1.0",
     "postcss": "8.5.5",
     "postcss-import": "^16.1.0",
