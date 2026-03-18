@@ -2,7 +2,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Providers } from "@/components/Providers";
-import { locales, Locales } from "@/i18n/routing";
+import { locales, validateLocale } from "@/i18n/routing";
 import { sharedMetdata } from "@/lib/shared-metadata";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -19,14 +19,15 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: Locales }>;
+  params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  validateLocale(locale);
   if (!locales.includes(locale)) notFound();
   setRequestLocale(locale);
   const messages = await getMessages();
   return (
-    <html className="flex min-h-screen flex-col scroll-smooth bg-white text-black light" lang={locale}>
+    <html className="light flex min-h-screen flex-col scroll-smooth bg-white text-black" lang={locale}>
       <body className={poppins.className}>
         <NextIntlClientProvider messages={messages}>
           <Providers>

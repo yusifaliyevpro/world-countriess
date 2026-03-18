@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaReact } from "react-icons/fa";
-import { SiNextdotjs, SiNextui, SiVercel } from "react-icons/si";
+import { SiNextdotjs, SiHeroui, SiVercel } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -82,7 +82,7 @@ export default async function About({ params }: AboutPageProps) {
         >
           {t("toolsIUsed")}
         </motion.p>
-        <div className="relative my-8 flex select-none flex-wrap items-center justify-center gap-x-8 gap-y-8 sm:flex-row">
+        <div className="relative my-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-8 select-none sm:flex-row">
           {tools.map((tool, index) => (
             <motion.div
               key={index}
@@ -95,7 +95,7 @@ export default async function About({ params }: AboutPageProps) {
                 stiffness: 80,
               }}
             >
-              <p className="flex flex-col items-center justify-center gap-y-2 rounded-xl p-3 shadow-large drop-shadow-2xl hover:bg-gray-100">
+              <p className="shadow-large flex flex-col items-center justify-center gap-y-2 rounded-xl p-3 drop-shadow-2xl hover:bg-gray-100">
                 <span>{tool.name}</span>
                 {tool.icon && tool.icon}
               </p>
@@ -144,7 +144,7 @@ const tools = [
   {
     name: "NextUI",
     link: "https://nextui.org/",
-    icon: <SiNextui className="text-8xl sm:text-7xl" />,
+    icon: <SiHeroui className="text-8xl sm:text-7xl" />,
   },
   {
     name: "Tailwind CSS",
