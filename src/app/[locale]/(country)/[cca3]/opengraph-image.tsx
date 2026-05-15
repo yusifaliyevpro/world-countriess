@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 import { CountryPageProps } from "./page";
 
-export const runtime = "edge";
-
+export const runtime = "nodejs";
 export const alt = "Country OpenGraph";
 export const size = {
   width: 1200,
