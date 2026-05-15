@@ -1,12 +1,13 @@
-import { BASE_URL } from "@/lib/constants";
 import { getCountries } from "@yusifaliyevpro/countries";
 import { MetadataRoute } from "next";
+import { cacheLife } from "next/cache";
+import { BASE_URL } from "@/lib/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const countriesData = await getCountries(
-    { fields: ["cca3", "name"] },
-    { next: { revalidate: 30 * 24 * 3600 }, cache: "force-cache" },
-  );
+  "use cache";
+  cacheLife("max");
+
+  const countriesData = await getCountries({ fields: ["cca3", "name"] });
   const sortedCountries = countriesData?.sort((a, b) => a.name.common.localeCompare(b.name.common)) || [];
 
   const countries = sortedCountries.map((country) => ({

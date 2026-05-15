@@ -1,20 +1,18 @@
-import Countries from "@/components/Countries";
-import PaginationUI from "@/components/Pagination";
-import Search from "@/components/Search";
-import { CountriesSkeleton } from "@/components/SuspenseLayouts";
-import { Locales, routing } from "@/i18n/routing";
-import { countriesPageFields } from "@/lib/fields";
-import { sharedMetdata } from "@/lib/shared-metadata";
 import { getCountries } from "@yusifaliyevpro/countries";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import Countries from "@/components/Countries";
+import PaginationUI from "@/components/Pagination";
+import Search from "@/components/Search";
+import { countriesPageFields } from "@/lib/fields";
+import { sharedMetdata } from "@/lib/shared-metadata";
+import { routing, validateLocale } from "@/i18n/routing";
 
-type HomePageProps = { params: Promise<{ locale: Locales }> };
-
-export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations();
   return {
@@ -41,21 +39,22 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({ params }: HomePageProps) {
+export default async function Home({ params }: PageProps<"/[locale]">) {
+  "use cache";
+  cacheLife("weeks");
+
   const { locale } = await params;
-  setRequestLocale(locale);
-  const countries = await getCountries(
-    { fields: countriesPageFields },
-    { next: { revalidate: 30 * 24 * 3600 }, cache: "force-cache" },
-  );
+  validateLocale(locale);
+  const countries = await getCountries({ fields: countriesPageFields });
   if (!countries) notFound();
   const resultCount = Number(countries.length !== undefined ? countries.length : 0);
+
   return (
-    <main className="mb-10 mt-12 min-h-svh">
+    <main className="mt-12 mb-10 min-h-svh">
       <Suspense
         fallback={
           <div>
-            <div className="mx-auto mb-4 mt-6 h-[44px] w-[300px] animate-pulse rounded-full bg-gray-400 sm:w-[500px]"></div>
+            <div className="mx-auto mt-6 mb-4 h-11 w-75 animate-pulse rounded-full bg-gray-400 sm:w-125"></div>
           </div>
         }
       >
@@ -64,7 +63,7 @@ export default async function Home({ params }: HomePageProps) {
       <Suspense
         fallback={
           <div className="relative mt-5 flex w-full items-center justify-center rounded-xl">
-            <div className="h-[36px] w-[236px] animate-pulse rounded-xl bg-gray-400"></div>
+            <div className="h-9 w-59 animate-pulse rounded-xl bg-gray-400"></div>
           </div>
         }
       >
@@ -79,8 +78,8 @@ export default async function Home({ params }: HomePageProps) {
           duration: 1.5,
         }}
       >
-        <Suspense fallback={<CountriesSkeleton />}>
-          {resultCount !== 0 && <Countries countriess={countries} locale={locale} />}
+        <Suspense>
+          <Countries countriess={countries} locale={locale} />
         </Suspense>
       </motion.div>
     </main>

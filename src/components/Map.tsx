@@ -1,8 +1,8 @@
 "use client";
 
-import { Modal, ModalContent, ModalBody, useDisclosure } from "@heroui/modal";
 import { GoogleMapsEmbed } from "@next/third-parties/google";
 import { useTranslations } from "next-intl";
+import { Modal, ModalBody, ModalContent, useDisclosure } from "@heroui/modal";
 
 export default function MapModal({ latlng, latlng2 }: { latlng: number; latlng2: number }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

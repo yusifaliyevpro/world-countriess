@@ -1,36 +1,31 @@
 "use client";
 
-import useStore from "@/lib/store";
-import { Input } from "@heroui/input";
-import { addToast } from "@heroui/toast";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useQueryState } from "nuqs";
+import { Input } from "@heroui/input";
 import { BiSearch } from "react-icons/bi";
-import { useDebounce } from "use-debounce";
+import { searchParams } from "@/lib/searchParams";
 
 export default function Search() {
-  const [text, setText] = useState("");
-  const [query] = useDebounce(text, 600);
-  const setSearch = useStore((state) => state.setSearch);
-  const resultCount = useStore((state) => state.resultCount);
+  const [query, setQuery] = useQueryState("q", searchParams.q);
   const t = useTranslations("Home.Search");
 
-  useEffect(() => {
-    setSearch(query);
-  }, [query, setSearch]);
+  // useEffect(() => {
+  //   setSearch(query);
+  // }, [query, setSearch]);
 
-  useEffect(() => {
-    if (resultCount === 0) {
-      addToast({ title: t("noResult"), icon: <BiSearch className="text-2xl font-bold" /> });
-    }
-  }, [t, resultCount]);
+  // useEffect(() => {
+  //   if (resultCount === 0) {
+  //     addToast({ title: t("noResult"), icon: <BiSearch className="text-2xl font-bold" /> });
+  //   }
+  // }, [t, resultCount]);
 
   return (
     <div>
-      <div className="mx-5 mb-4 mt-6 w-auto sm:mx-auto sm:w-[500px]">
+      <div className="mx-5 mt-6 mb-4 w-auto sm:mx-auto sm:w-125">
         <Input
           classNames={{
-            base: "h-11 sm:max-w-[100rem]",
+            base: "h-11 sm:max-w-400",
             mainWrapper: "h-full",
             input: "text-md text-small font-bold text-black",
             inputWrapper: "h-full font-normal text-white",
@@ -40,11 +35,9 @@ export default function Search() {
           size="lg"
           startContent={<BiSearch className="text-[1.7rem] font-bold text-black" />}
           type="search"
-          value={text}
+          value={query}
           variant="bordered"
-          onChange={(e) => {
-            setText(e.target.value.replace(/['\[\]\/\\()]/g, ""));
-          }}
+          onChange={(e) => setQuery(e.target.value.replace(/['\[\]\/\\()]/g, ""))}
         />
       </div>
     </div>

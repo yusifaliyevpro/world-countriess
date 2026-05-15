@@ -1,7 +1,7 @@
 "use client";
 
-import { Modal, ModalBody, ModalContent, useDisclosure } from "@heroui/modal";
 import { useTranslations } from "next-intl";
+import { Modal, ModalBody, ModalContent, useDisclosure } from "@heroui/modal";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -21,7 +21,9 @@ export default function CoatofArmy({ src, alt }: { src: string; alt: string }) {
         <ModalContent>
           <ModalBody>
             <div className="relative mx-4 my-4 flex items-center justify-center">
-              <div className={`fixed right-1/2 left-1/2 mt-32 items-center justify-center ${loaded ? "hidden" : "flex"}`}>
+              <div
+                className={`fixed right-1/2 left-1/2 mt-32 items-center justify-center ${loaded ? "hidden" : "flex"}`}
+              >
                 <p className="text-3xl font-bold">Loading...</p>
               </div>
               <Image
