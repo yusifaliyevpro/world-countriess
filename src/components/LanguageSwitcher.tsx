@@ -1,13 +1,14 @@
 "use client";
 
-import { Locales, redirect } from "@/i18n/routing";
 import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
 import { usePathname } from "next/navigation";
+import { redirect } from "@/i18n/navigation";
+import { Locale } from "@/i18n/routing";
 
-export default function LanguageSwitcher({ locale }: { locale: Locales }) {
+export default function LanguageSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname().replace("az", "").replace("en", "").replace("tr", "");
-  const changeLocale = (lang: Locales) => {
+  const changeLocale = (lang: Locale) => {
     redirect({ locale: lang, href: pathname });
   };
   const languages = [
@@ -20,7 +21,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locales }) {
     <Select
       isRequired
       aria-label="Language"
-      className="min-w-[110px]"
+      className="min-w-27.5"
       classNames={{
         trigger: "bg-gray-200",
         popoverContent: "bg-gray-200",
@@ -31,18 +32,24 @@ export default function LanguageSwitcher({ locale }: { locale: Locales }) {
       renderValue={(items) => {
         return items.map((item) => (
           <div key={item.key} className="flex flex-row items-center gap-x-2">
-            <Avatar alt={item?.data?.lang || ""} className="h-6 w-6" src={`https://flagcdn.com/${item?.data?.flag}.svg`} />
+            <Avatar
+              alt={item?.data?.lang || ""}
+              className="h-6 w-6"
+              src={`https://flagcdn.com/${item?.data?.flag}.svg`}
+            />
             <p>{item?.data?.key.toUpperCase()}</p>
           </div>
         ));
       }}
       selectedKeys={[locale]}
-      onSelectionChange={(value) => changeLocale(value.currentKey as Locales)}
+      onSelectionChange={(value) => changeLocale(value.currentKey as Locale)}
     >
       {(language) => (
         <SelectItem
           key={language.key}
-          startContent={<Avatar alt={language.lang} className="h-6 w-6" src={`https://flagcdn.com/${language.flag}.svg`} />}
+          startContent={
+            <Avatar alt={language.lang} className="h-6 w-6" src={`https://flagcdn.com/${language.flag}.svg`} />
+          }
         >
           {language.key.toUpperCase()}
         </SelectItem>

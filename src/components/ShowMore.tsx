@@ -1,26 +1,21 @@
 "use client";
 
-import CoatofArmy from "./CoatofArmy";
-import MapModal from "./Map";
-import { countryPageFields } from "@/lib/fields";
-import { Accordion, AccordionItem } from "@heroui/accordion";
 import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import * as motion from "motion/react-client";
 import { useTranslations } from "next-intl";
+import { Accordion, AccordionItem } from "@heroui/accordion";
+import { countryPageFields } from "@/lib/fields";
+import CoatofArmy from "./CoatofArmy";
+import MapModal from "./Map";
 
 export function ShowMore({ country }: { country: CountryPicker<typeof countryPageFields> }) {
   const t = useTranslations("Country.MoreInfo");
   return (
     <motion.div
       animate={{ opacity: 1, y: 0 }}
-      className="mb-10 w-full sm:w-3/5"
-      initial={{ opacity: 0, y: -30 }}
-      transition={{
-        duration: 0.8,
-        delay: country.borders ? 4.2 : 3.4,
-        type: "spring",
-        stiffness: 100,
-      }}
+      className="mb-10 w-full"
+      initial={{ opacity: 0, y: 12 }}
+      transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.3 }}
     >
       <Accordion>
         <AccordionItem
@@ -38,8 +33,9 @@ export function ShowMore({ country }: { country: CountryPicker<typeof countryPag
               <p className="font-bold">
                 {t("officialName")} <span className="font-normal">{country.name.official}</span>
               </p>
-              <p className="text-nowrap font-bold">
-                {t("isCountryIndependent")} <span className="font-normal">{country.independent ? t("yes") : t("no")}</span>
+              <p className="font-bold text-nowrap">
+                {t("isCountryIndependent")}{" "}
+                <span className="font-normal">{country.independent ? t("yes") : t("no")}</span>
               </p>
               <p className="font-bold">
                 {t("timezones")}{" "}
@@ -58,8 +54,9 @@ export function ShowMore({ country }: { country: CountryPicker<typeof countryPag
                 {t("traffic")}{" "}
                 <span className="font-normal">{country.car.side === "right" ? t("rightHand") : t("leftHand")}</span>
               </p>
-              <p className="text-nowrap font-bold">
-                {t("isCountryLandlocked")} <span className="font-normal">{country.landlocked ? t("yes") : t("no")}</span>
+              <p className="font-bold text-nowrap">
+                {t("isCountryLandlocked")}{" "}
+                <span className="font-normal">{country.landlocked ? t("yes") : t("no")}</span>
               </p>
               <p className="mr-5 font-bold" title={t("unAbbr")}>
                 {t("memberUN")}: <span className="font-normal"> {country.unMember ? t("yes") : t("no")}</span>
@@ -68,7 +65,9 @@ export function ShowMore({ country }: { country: CountryPicker<typeof countryPag
           </div>
           <div className="mt-8 flex flex-col justify-between gap-y-4 sm:mt-0 sm:flex-row sm:gap-y-0">
             <MapModal latlng={country.latlng[0]} latlng2={country.latlng[1]} />
-            {country.coatOfArms.svg && <CoatofArmy alt={country.flags.alt || "Country Flag"} src={country.coatOfArms.svg} />}
+            {country.coatOfArms.svg && (
+              <CoatofArmy alt={country.flags.alt || "Country Flag"} src={country.coatOfArms.svg} />
+            )}
           </div>
         </AccordionItem>
       </Accordion>

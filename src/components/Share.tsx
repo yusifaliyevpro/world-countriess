@@ -1,36 +1,46 @@
 "use client";
 
-import { Locales } from "@/i18n/routing";
-import { BASE_URL } from "@/lib/constants";
-import { countryPageFields } from "@/lib/fields";
-import { Button } from "@heroui/button";
-import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@heroui/modal";
-import { Snippet } from "@heroui/snippet";
-import { addToast, closeAll } from "@heroui/toast";
 import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { Button } from "@heroui/button";
+import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
+import { Snippet } from "@heroui/snippet";
+import { addToast, closeAll } from "@heroui/toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { isMobile } from "react-device-detect";
-import { BiDotsVerticalRounded, BiImageAlt, BiLink, BiLogoTelegram, BiLogoWhatsapp, BiSolidShareAlt } from "react-icons/bi";
+import {
+  BiDotsVerticalRounded,
+  BiImageAlt,
+  BiLink,
+  BiLogoTelegram,
+  BiLogoWhatsapp,
+  BiSolidShareAlt,
+} from "react-icons/bi";
+import { BASE_URL } from "@/lib/constants";
+import { countryPageFields } from "@/lib/fields";
+import { Locale } from "@/i18n/routing";
 
-export default function Share({ country, locale }: { country: CountryPicker<typeof countryPageFields>; locale: Locales }) {
+export default function Share({
+  country,
+  locale,
+}: {
+  country: CountryPicker<typeof countryPageFields>;
+  locale: Locale;
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Country.Share");
-  const [canShareFiles, setCanShareFiles] = useState(false);
-  const [canShareText, setCanShareText] = useState(false);
-
-  useEffect(() => {
-    if (typeof navigator !== "undefined" && navigator.canShare) {
-      setCanShareFiles(navigator.canShare({ files: [new File([], "test.png", { type: "image/png" })] }));
-      setCanShareText(navigator.canShare({ text: "Test" }));
-    }
-  }, []);
+  const [canShareFiles] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      !!navigator.canShare?.({ files: [new File([], "test.png", { type: "image/png" })] }),
+  );
+  const [canShareText] = useState(() => typeof window !== "undefined" && !!navigator.canShare?.({ text: "Test" }));
 
   const ShareText = (s: string) => {
     return t("shareText", {
@@ -72,41 +82,33 @@ export default function Share({ country, locale }: { country: CountryPicker<type
   };
 
   async function handlePoster() {
-    if (!country) return null;
-    try {
-      const posterURL = country.flags.png;
-      const response = await fetch(posterURL);
+    if (!country) return;
 
-      if (!response.ok) {
-        throw new Error("İmage couldn't fetch");
-      }
-
-      const blob = await response.blob();
-      const filesArray = [
-        new File([blob], `flag.png`, {
-          type: "image/png",
-          lastModified: new Date().getTime(),
-        }),
-      ];
-      const shareData = {
-        title: `FilmIsBest | ${country.name.common}`,
-        files: filesArray,
-      };
-      closeAll();
-      addToast({ title: t("imageIsPreparing") });
-      return navigator
-        .share(shareData)
-        .then(() => {
-          closeAll();
-          addToast({ title: t("imageIsReady"), color: "success" });
-        })
-        .catch(() => {
-          throw new Error(t("anErrorOccurred"));
-        });
-    } catch (error) {
-      addToast({ title: "An error Occured", color: "danger" });
-      console.log(error);
+    const response = await fetch(country.flags.png).catch(() => null);
+    if (!response?.ok) {
+      addToast({ title: "An error occurred", color: "danger" });
+      return;
     }
+
+    const blob = await response.blob().catch(() => null);
+    if (!blob) {
+      addToast({ title: "An error occurred", color: "danger" });
+      return;
+    }
+
+    const filesArray = [new File([blob], "flag.png", { type: "image/png", lastModified: Date.now() })];
+    closeAll();
+    addToast({ title: t("imageIsPreparing") });
+
+    navigator
+      .share({ title: `FilmIsBest | ${country.name.common}`, files: filesArray })
+      .then(() => {
+        closeAll();
+        addToast({ title: t("imageIsReady"), color: "success" });
+      })
+      .catch(() => {
+        addToast({ title: t("anErrorOccurred"), color: "danger" });
+      });
   }
 
   return (
@@ -131,14 +133,19 @@ export default function Share({ country, locale }: { country: CountryPicker<type
           <p className="select-none">{t("share")}</p>
         </Button>
       </motion.div>
-      <Modal className="light:text-white dark:text-white" isOpen={isOpen} placement="center" onOpenChange={onOpenChange}>
+      <Modal
+        className="dark:text-white light:text-white"
+        isOpen={isOpen}
+        placement="center"
+        onOpenChange={onOpenChange}
+      >
         <ModalContent>
           <ModalHeader className="flex w-full flex-row items-center justify-center gap-3 font-bold">
             <BiSolidShareAlt className="mt-1 text-4xl" />
-            <h6 className="select-none text-3xl font-bold">{t("share")}</h6>
+            <h6 className="text-3xl font-bold select-none">{t("share")}</h6>
           </ModalHeader>
           <ModalBody className="p-8">
-            <div className="no-scrollbar relative mb-10 flex flex-1 select-none flex-row items-center gap-4 overflow-x-scroll p-2 scrollbar-hide">
+            <div className="no-scrollbar relative mb-10 scrollbar-hide flex flex-1 flex-row items-center gap-4 overflow-x-scroll p-2 select-none">
               <div
                 className="relative flex w-fit cursor-pointer flex-col items-center rounded-lg p-2 hover:shadow-medium"
                 onClick={() => handleShare("whatsapp")}
@@ -160,14 +167,14 @@ export default function Share({ country, locale }: { country: CountryPicker<type
                 onClick={() => handleShare("copy")}
               >
                 <BiLink className="text-7xl text-blue-600" />
-                <p className="text-nowrap font-bold">Copy Text</p>
+                <p className="font-bold text-nowrap">Copy Text</p>
               </div>
               {canShareFiles && (
                 <div
                   className="relative flex w-fit cursor-pointer flex-col items-center rounded-lg p-2 hover:shadow-medium"
                   onClick={handlePoster}
                 >
-                  <BiImageAlt className="text-nowrap text-7xl text-blue-600" />
+                  <BiImageAlt className="text-7xl text-nowrap text-blue-600" />
                   <p className="font-bold" title="Low quality">
                     {t("flag")}
                   </p>

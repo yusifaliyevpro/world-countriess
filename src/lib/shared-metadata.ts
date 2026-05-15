@@ -1,5 +1,5 @@
-import { BASE_URL } from "./constants";
 import { Metadata } from "next";
+import { BASE_URL } from "./constants";
 
 const creator = "Yusif Aliyev";
 const applicationName = "World Countriess";
