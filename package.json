@@ -29,7 +29,7 @@
     "@lottiefiles/react-lottie-player": "3.6.0",
     "@next/eslint-plugin-next": "16.2.9",
     "@next/third-parties": "16.2.9",
-    "@yusifaliyevpro/countries": "5.0.0",
+    "@yusifaliyevpro/countries": "5.0.1",
     "autoprefixer": "10.5.0",
     "eslint-plugin-react-hooks": "7.1.1",
     "framer-motion": "12.38.0",

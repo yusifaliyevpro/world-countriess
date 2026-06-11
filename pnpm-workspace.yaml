@@ -5,5 +5,5 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 minimumReleaseAgeExclude:
-  - '@types/node@24.13.2'
-  - '@yusifaliyevpro/countries@5.0.0'
+  - "@types/node@24.13.2"
+  - "@yusifaliyevpro/countries@5.0.1"

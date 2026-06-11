@@ -26,7 +26,13 @@ export default async function Image({ params }: CountryPageProps) {
     <div tw="relative flex h-full w-full items-center justify-center">
       <div tw="absolute inset-0 flex">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img alt={country.names.common} height={600} src={country.flag.url_svg} tw="flex flex-1" width={1200} />
+        <img
+          alt={country.names.common}
+          height={600}
+          src={country.flag.url_svg || "/placeholder_flag.png"}
+          tw="flex flex-1"
+          width={1200}
+        />
         <div tw="bg-opacity-70 absolute inset-0 z-10 flex bg-black" />
       </div>
       <div tw="flex flex-col text-neutral-50">

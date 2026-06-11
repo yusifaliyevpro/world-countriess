@@ -47,7 +47,7 @@ export default function Countries({ countriess, locale }: CountriesProps) {
   const fuse = useMemo(
     () =>
       new Fuse(countries, {
-        keys: ["name.common", "name.official", "name.officialAze", "capital"],
+        keys: ["names.common", "names.official", "names.officialAze", "capitals"],
         threshold: 0.4,
       }),
     [countries],
@@ -93,7 +93,7 @@ export default function Countries({ countriess, locale }: CountriesProps) {
                     alt={country.flag.description || "Country Flag"}
                     className="h-46.25 w-full rounded-t-xl object-cover"
                     height={185}
-                    src={country.flag.url_svg}
+                    src={country.flag.url_svg || "/placeholder_flag.png"}
                     width={325}
                     loading={i < 3 ? "eager" : "lazy"}
                   />
@@ -102,7 +102,7 @@ export default function Countries({ countriess, locale }: CountriesProps) {
                   {countriesTranslation.getName(country.codes.alpha_3, locale) || country.names.common}
                 </p>
                 <p className="text-md my-3 ml-8 text-left text-slate-900">
-                  <span className="font-bold">{t("capital")} </span> {country.capitals[0].name}
+                  <span className="font-bold">{t("capital")} </span> {country.capitals[0]?.name}
                 </p>
                 <p className="text-md my-3 ml-8 text-left text-slate-900">
                   <span className="font-bold">{t("region")} </span>{" "}

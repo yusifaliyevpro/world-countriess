@@ -45,7 +45,7 @@ export default function Share({
   const ShareText = (s: string) => {
     return t("shareText", {
       s: s,
-      flag: country.flag.url_svg,
+      flag: country.flag.url_svg || `${BASE_URL}/placeholder_flag.png`,
       country: countries.getName(country.codes.alpha_3, locale) || country.names.common,
       officialName: country.names.official,
       capital: country.capitals[0].name,
@@ -84,7 +84,7 @@ export default function Share({
   async function handlePoster() {
     if (!country) return;
 
-    const response = await fetch(country.flag.url_png).catch(() => null);
+    const response = await fetch(country.flag.url_png || "/placeholder_flag.png").catch(() => null);
     if (!response?.ok) {
       addToast({ title: "An error occurred", color: "danger" });
       return;

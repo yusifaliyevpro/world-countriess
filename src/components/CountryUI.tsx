@@ -122,7 +122,7 @@ export async function CountryUI({
             alt={country.flag.description || "Country Flag"}
             className="h-auto w-full rounded-xl object-cover shadow-large drop-shadow-xl select-none"
             height={300}
-            src={country.flag.url_svg}
+            src={country.flag.url_svg || "/placeholder_flag.png"}
             width={550}
             priority
           />
