@@ -1,4 +1,3 @@
-import { getCountriesByCodes } from "@yusifaliyevpro/countries";
 import { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import * as motion from "motion/react-client";
@@ -7,6 +6,7 @@ import { cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { restCountries } from "@/lib/countries";
 import { countryPageFields } from "@/lib/fields";
 import { Locale } from "@/i18n/routing";
 import Share from "./Share";
@@ -30,19 +30,24 @@ export async function CountryUI({
 
   if (!country) notFound();
 
-  const borderCountries = await getCountriesByCodes({
-    codes: country.borders as string[],
-    fields: ["name", "cca3", "cca2"],
-  });
+  const borderCountries = await Promise.all(
+    country.borders?.map((code) =>
+      restCountries.getCountryByCode({
+        code: code,
+        fields: ["names", "codes"],
+      }),
+    ) || [],
+  );
+
   const t = await getTranslations("Country");
 
   const infoLeft = [
     {
       label: t("nativeName"),
-      value: country.name.nativeName ? Object.values(country.name.nativeName)[0]?.common : "—",
+      value: country.names.native ? Object.values(country.names.native)[0]?.common : "—",
     },
     { label: t("region"), value: t(`Continents.${country.region.toLowerCase()}`) || country.region },
-    { label: t("capital"), value: country.capital?.join(", ") || "—" },
+    { label: t("capital"), value: country.capitals.flatMap((c) => c.name)?.join(", ") || "—" },
     {
       label: t("currencies"),
       value: country.currencies
@@ -54,7 +59,7 @@ export async function CountryUI({
   const infoRight = [
     { label: t("population"), value: country.population.toLocaleString(locale) },
     { label: t("subRegion"), value: country.subregion || "—" },
-    { label: t("topLevelDomain"), value: country.tld?.join(", ") || "—" },
+    { label: t("topLevelDomain"), value: country.tlds?.join(", ") || "—" },
     { label: t("languages"), value: country.languages ? Object.values(country.languages).join(", ") : "—" },
   ];
 
@@ -63,8 +68,8 @@ export async function CountryUI({
       <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-start lg:gap-16">
         {/* Info panel */}
         <motion.div {...fadeUp(0.15)} className="flex flex-1 flex-col gap-6">
-          <h1 className="text-3xl font-bold sm:text-4xl" title={country.name.common}>
-            {countries.getName(country.cca3, locale) || country.name.common}
+          <h1 className="text-3xl font-bold sm:text-4xl" title={country.names.common}>
+            {countries.getName(country.codes.alpha_3, locale) || country.names.common}
           </h1>
 
           <div className="flex flex-col gap-6 sm:flex-row sm:gap-12">
@@ -92,15 +97,18 @@ export async function CountryUI({
             <div className="flex flex-wrap items-start gap-3">
               <span className="font-semibold">{t("borderCountries")}</span>
               <div className="flex flex-wrap gap-2">
-                {borderCountries.map((bc) => (
-                  <Link
-                    key={bc.cca3}
-                    href={`/${locale}/${bc.cca3.toLowerCase()}`}
-                    className="rounded-md border border-gray-300 px-3 py-1 text-sm transition-colors hover:border-blue-500 hover:text-blue-600 dark:border-gray-700 dark:hover:border-blue-400 dark:hover:text-blue-400"
-                  >
-                    {countries.getName(bc.cca3, locale) || bc.name.common}
-                  </Link>
-                ))}
+                {borderCountries.map(
+                  (bc) =>
+                    bc && (
+                      <Link
+                        key={bc.codes.alpha_3}
+                        href={`/${locale}/${bc.codes.alpha_3.toLowerCase()}`}
+                        className="rounded-md border border-gray-300 px-3 py-1 text-sm transition-colors hover:border-blue-500 hover:text-blue-600 dark:border-gray-700 dark:hover:border-blue-400 dark:hover:text-blue-400"
+                      >
+                        {countries.getName(bc.codes.alpha_3, locale) || bc.names.common}
+                      </Link>
+                    ),
+                )}
               </div>
             </div>
           )}
@@ -111,10 +119,10 @@ export async function CountryUI({
         {/* Flag + share */}
         <motion.div {...fadeUp(0.05)} className="flex flex-col items-center gap-4 lg:w-[48%]">
           <Image
-            alt={country.flags.alt || "Country Flag"}
+            alt={country.flag.description || "Country Flag"}
             className="h-auto w-full rounded-xl object-cover shadow-large drop-shadow-xl select-none"
             height={300}
-            src={country.flags.svg}
+            src={country.flag.url_svg}
             width={550}
             priority
           />

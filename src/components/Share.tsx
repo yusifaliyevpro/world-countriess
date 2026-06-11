@@ -45,16 +45,16 @@ export default function Share({
   const ShareText = (s: string) => {
     return t("shareText", {
       s: s,
-      flag: country.flag,
-      country: countries.getName(country.cca3, locale) || country.name.common,
-      officialName: country.name.official,
-      capital: country.capital ? country.capital.join(", ") : "No Capital City",
+      flag: country.flag.url_svg,
+      country: countries.getName(country.codes.alpha_3, locale) || country.names.common,
+      officialName: country.names.official,
+      capital: country.capitals[0].name,
       population: country.population.toLocaleString("az"),
       region: country.subregion ? country.subregion : "No Information",
       currency: country.currencies
         ? Object.values(country.currencies)[0].name + ` (${Object.values(country.currencies)[0].symbol})`
         : "No Currency",
-      independent: country.independent ? "✅" : "❎",
+      independent: country.classification.sovereign ? "✅" : "❎",
       baseURL: BASE_URL,
       pathname: pathname,
     });
@@ -73,7 +73,7 @@ export default function Share({
       }
     } else if (platform === "other") {
       const shareData = {
-        title: `World Countriess | ${country.name.common}`,
+        title: `World Countriess | ${country.names.common}`,
         text: ShareText(""),
       };
       addToast({ title: t("preparing"), timeout: 1000 });
@@ -84,7 +84,7 @@ export default function Share({
   async function handlePoster() {
     if (!country) return;
 
-    const response = await fetch(country.flags.png).catch(() => null);
+    const response = await fetch(country.flag.url_png).catch(() => null);
     if (!response?.ok) {
       addToast({ title: "An error occurred", color: "danger" });
       return;
@@ -101,7 +101,7 @@ export default function Share({
     addToast({ title: t("imageIsPreparing") });
 
     navigator
-      .share({ title: `FilmIsBest | ${country.name.common}`, files: filesArray })
+      .share({ title: `FilmIsBest | ${country.names.common}`, files: filesArray })
       .then(() => {
         closeAll();
         addToast({ title: t("imageIsReady"), color: "success" });
@@ -191,9 +191,13 @@ export default function Share({
               )}
             </div>
             <div className="mx-auto">
-              <Snippet codeString={`${BASE_URL}/${locale}/${country.cca3.toLowerCase()}`} symbol="" variant="bordered">
+              <Snippet
+                codeString={`${BASE_URL}/${locale}/${country.codes.alpha_3.toLowerCase()}`}
+                symbol=""
+                variant="bordered"
+              >
                 <div className="line-clamp-1 w-48 flex-row truncate text-nowrap lg:w-80">
-                  {`${BASE_URL}/${locale}/${country.cca3.toLowerCase()}`}
+                  {`${BASE_URL}/${locale}/${country.codes.alpha_3.toLowerCase()}`}
                 </div>
               </Snippet>
             </div>

@@ -1,35 +1,24 @@
 import { defineFields } from "@yusifaliyevpro/countries";
 
 export const countryPageFields = defineFields([
-  "name",
-  "cca3",
-  "cca2",
+  "names",
+  "codes",
   "borders",
   "region",
-  "capital",
+  "capitals",
   "currencies",
   "population",
-  "flags",
-  "tld",
+  "flag",
+  "tlds",
   "languages",
   "subregion",
   "flag",
-  "independent",
   "timezones",
   "landlocked",
-  "unMember",
-  "car",
-  "latlng",
-  "coatOfArms",
+  "classification",
+  "memberships",
+  "cars",
+  "coordinates",
 ]);
 
-export const countriesPageFields = defineFields([
-  "name",
-  "flags",
-  "translations",
-  "capital",
-  "region",
-  "population",
-  "cca2",
-  "cca3",
-]);
+export const countriesPageFields = defineFields(["names", "flag", "capitals", "region", "population", "codes"]);

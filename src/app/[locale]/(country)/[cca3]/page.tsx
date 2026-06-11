@@ -1,10 +1,10 @@
-import { getCountryByCode } from "@yusifaliyevpro/countries";
 import countries from "i18n-iso-countries";
 import { Metadata } from "next";
 import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CountryUI } from "@/components/CountryUI";
+import { restCountries } from "@/lib/countries";
 import { countryPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
 import { Locale, routing } from "@/i18n/routing";
@@ -16,25 +16,25 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   cacheLife("weeks");
 
   const { locale, cca3 } = await params;
-  const country = await getCountryByCode({ code: cca3, fields: countryPageFields });
+  const country = await restCountries.getCountryByCode({ code: cca3, fields: countryPageFields });
   if (!country) return notFound();
 
   return {
-    title: country.name.common,
-    description: `${country.name.official}`,
+    title: country.names.common,
+    description: `${country.names.official}`,
     alternates: {
-      canonical: `/countries/${country.cca3}`,
+      canonical: `/countries/${country.codes.alpha_3}`,
       languages: {
-        "en-US": `/en/countries/${country.cca3}`,
-        "en-GB": `/en/countries/${country.cca3}`,
-        "az-AZ": `/az/countries/${country.cca3}`,
+        "en-US": `/en/countries/${country.codes.alpha_3}`,
+        "en-GB": `/en/countries/${country.codes.alpha_3}`,
+        "az-AZ": `/az/countries/${country.codes.alpha_3}`,
       },
     },
-    keywords: [`${country.name.common}`, `${country.name.official}`, ...sharedMetdata.keywords],
+    keywords: [`${country.names.common}`, `${country.names.official}`, ...sharedMetdata.keywords],
     openGraph: {
-      title: `${country.name.common} | World Countriess`,
-      url: `/${locale}/countries/${country.cca3}`,
-      description: `${country.name.official}`,
+      title: `${country.names.common} | World Countriess`,
+      url: `/${locale}/countries/${country.codes.alpha_3}`,
+      description: `${country.names.official}`,
     },
   };
 }
@@ -48,12 +48,15 @@ export default async function CountryPage({ params }: CountryPageProps) {
   cacheLife("weeks");
 
   const { locale, cca3 } = await params;
-  const country = await getCountryByCode({ code: cca3, fields: countryPageFields });
+  const country = await restCountries.getCountryByCode({ code: cca3, fields: countryPageFields });
   if (!country) return notFound();
 
   return (
     <main className="min-h-svh">
-      <Breadcrumb cca3={country.cca3} countryName={countries.getName(country.cca2, locale) || "Country Name"} />
+      <Breadcrumb
+        cca3={country.codes.alpha_3}
+        countryName={countries.getName(country.codes.alpha_2, locale) || "Country Name"}
+      />
       <CountryUI country={country} locale={locale} />
     </main>
   );

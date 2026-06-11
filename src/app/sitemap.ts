@@ -1,17 +1,17 @@
-import { getCountries } from "@yusifaliyevpro/countries";
 import { MetadataRoute } from "next";
 import { cacheLife } from "next/cache";
 import { BASE_URL } from "@/lib/constants";
+import { restCountries } from "@/lib/countries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   "use cache";
   cacheLife("max");
 
-  const countriesData = await getCountries({ fields: ["cca3", "name"] });
-  const sortedCountries = countriesData?.sort((a, b) => a.name.common.localeCompare(b.name.common)) || [];
+  const countriesData = await restCountries.getCountries({ fields: ["codes", "names"] });
+  const sortedCountries = countriesData?.countries.sort((a, b) => a.names.common.localeCompare(b.names.common)) || [];
 
   const countries = sortedCountries.map((country) => ({
-    url: `${BASE_URL}/countries/${country.cca3.toLowerCase()}`,
+    url: `${BASE_URL}/countries/${country.codes.alpha_3.toLowerCase()}`,
     lastModified: new Date().toISOString(),
   }));
 

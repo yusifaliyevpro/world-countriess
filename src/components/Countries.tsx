@@ -37,8 +37,8 @@ export default function Countries({ countriess, locale }: CountriesProps) {
       countriess.map((country) => ({
         ...country,
         name: {
-          ...country.name,
-          officialAze: countriesTranslation.getName(country.cca3, "az"),
+          ...country.names,
+          officialAze: countriesTranslation.getName(country.codes.alpha_3, "az"),
         },
       })),
     [countriess],
@@ -74,7 +74,7 @@ export default function Countries({ countriess, locale }: CountriesProps) {
       <AnimatePresence>
         {filteredCountries.map((country, i) => (
           <motion.div
-            key={country.cca3}
+            key={country.codes.alpha_3}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 300 }}
             initial={{ opacity: 0, y: 200 }}
@@ -86,23 +86,23 @@ export default function Countries({ countriess, locale }: CountriesProps) {
             >
               <Link
                 className="justify-content-center relative mt-10 inline-block w-81.25 items-center justify-center rounded-xl bg-gray-200 text-center shadow-medium select-none"
-                href={`/${country.cca3.toLowerCase()}`}
+                href={`/${country.codes.alpha_3.toLowerCase()}`}
               >
                 <div className="relative">
                   <Image
-                    alt={country.flags.alt || "Country Flag"}
+                    alt={country.flag.description || "Country Flag"}
                     className="h-46.25 w-full rounded-t-xl object-cover"
                     height={185}
-                    src={country.flags.svg}
+                    src={country.flag.url_svg}
                     width={325}
                     loading={i < 3 ? "eager" : "lazy"}
                   />
                 </div>
                 <p className="my-3 mr-6 ml-8 truncate text-left text-2xl font-bold text-black">
-                  {countriesTranslation.getName(country.cca3, locale) || country.name.common}
+                  {countriesTranslation.getName(country.codes.alpha_3, locale) || country.names.common}
                 </p>
                 <p className="text-md my-3 ml-8 text-left text-slate-900">
-                  <span className="font-bold">{t("capital")} </span> {country.capital}
+                  <span className="font-bold">{t("capital")} </span> {country.capitals[0].name}
                 </p>
                 <p className="text-md my-3 ml-8 text-left text-slate-900">
                   <span className="font-bold">{t("region")} </span>{" "}

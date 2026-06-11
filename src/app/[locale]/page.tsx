@@ -1,4 +1,3 @@
-import { getCountries } from "@yusifaliyevpro/countries";
 import * as motion from "motion/react-client";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -8,6 +7,7 @@ import { Suspense } from "react";
 import Countries from "@/components/Countries";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
+import { restCountries } from "@/lib/countries";
 import { countriesPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
 import { routing, validateLocale } from "@/i18n/routing";
@@ -45,8 +45,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   const { locale } = await params;
   validateLocale(locale);
-  const countries = await getCountries({ fields: countriesPageFields });
-  if (!countries) notFound();
+  const countriesData = await restCountries.getCountries({ fields: countriesPageFields });
+  if (!countriesData) notFound();
+  const { countries } = countriesData;
   const resultCount = Number(countries.length !== undefined ? countries.length : 0);
 
   return (
