@@ -32,17 +32,13 @@ export default function Countries({ countriess, locale }: CountriesProps) {
 
   const t = useTranslations("Country");
 
-  const countries = useMemo(
-    () =>
-      countriess.map((country) => ({
-        ...country,
-        name: {
-          ...country.names,
-          officialAze: countriesTranslation.getName(country.codes.alpha_3, "az"),
-        },
-      })),
-    [countriess],
-  );
+  const countries = countriess.map((country) => ({
+    ...country,
+    name: {
+      ...country.names,
+      officialAze: countriesTranslation.getName(country.codes.alpha_3, "az"),
+    },
+  }));
 
   const fuse = useMemo(
     () =>

@@ -9,15 +9,15 @@ import { countryPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
 import { Locale, routing } from "@/i18n/routing";
 
-export type CountryPageProps = { params: Promise<{ cca3: string; locale: Locale }> };
+export type CountryPageProps = { params: Promise<{ alpha_3: string; locale: Locale }> };
 
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   "use cache";
   cacheLife("weeks");
 
-  const { locale, cca3 } = await params;
-  const country = await restCountries.getCountryByCode({ code: cca3, fields: countryPageFields });
-  if (!country) return notFound();
+  const { locale, alpha_3 } = await params;
+  const { success, country } = await restCountries.getCountryByCode({ alpha_3, fields: countryPageFields });
+  if (!success) return notFound();
 
   return {
     title: country.names.common,
@@ -40,16 +40,16 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
 }
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale, cca3: "aze" }));
+  return routing.locales.map((locale) => ({ locale, alpha_3: "aze" }));
 }
 
 export default async function CountryPage({ params }: CountryPageProps) {
   "use cache";
   cacheLife("weeks");
 
-  const { locale, cca3 } = await params;
-  const country = await restCountries.getCountryByCode({ code: cca3, fields: countryPageFields });
-  if (!country) return notFound();
+  const { locale, alpha_3 } = await params;
+  const { success, country } = await restCountries.getCountryByCode({ alpha_3, fields: countryPageFields });
+  if (!success) return notFound();
 
   return (
     <main className="min-h-svh">

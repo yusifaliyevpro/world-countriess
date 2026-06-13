@@ -12,12 +12,13 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image({ params }: CountryPageProps) {
-  const { cca3 } = await params;
-  const country = await restCountries.getCountryByCode(
-    { code: cca3, fields: ["flag", "names"] },
+  const { alpha_3 } = await params;
+  const { success, country } = await restCountries.getCountryByCode(
+    { alpha_3, fields: ["flag", "names"] },
     { next: { revalidate: 7 * 23 * 3600 }, cache: "force-cache" },
   );
-  if (!country) notFound();
+  if (!success) notFound();
+
   const interSemiBold = fetch(new URL("./../../../../../public/fonts/Inter-Bold.ttf", import.meta.url)).then((res) =>
     res.arrayBuffer(),
   );

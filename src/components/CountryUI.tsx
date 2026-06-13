@@ -30,14 +30,18 @@ export async function CountryUI({
 
   if (!country) notFound();
 
-  const borderCountries = await Promise.all(
-    country.borders?.map((code) =>
-      restCountries.getCountryByCode({
-        code: code,
-        fields: ["names", "codes"],
+  const borderCountries = (
+    await Promise.all(
+      country.borders?.map(async (code) => {
+        const { success, country } = await restCountries.getCountryByCode({
+          alpha_3: code,
+          fields: ["names", "codes"],
+        });
+
+        return success ? [country] : [];
       }),
-    ) || [],
-  );
+    )
+  ).flat();
 
   const t = await getTranslations("Country");
 

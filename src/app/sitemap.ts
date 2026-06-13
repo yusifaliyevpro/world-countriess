@@ -7,8 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   "use cache";
   cacheLife("max");
 
-  const countriesData = await restCountries.getCountries({ fields: ["codes", "names"] });
-  const sortedCountries = countriesData?.countries.sort((a, b) => a.names.common.localeCompare(b.names.common)) || [];
+  const { success, countries: countriesData } = await restCountries.getCountries({ fields: ["codes", "names"] });
+  const sortedCountries = success ? countriesData.sort((a, b) => a.names.common.localeCompare(b.names.common)) : [];
 
   const countries = sortedCountries.map((country) => ({
     url: `${BASE_URL}/countries/${country.codes.alpha_3.toLowerCase()}`,

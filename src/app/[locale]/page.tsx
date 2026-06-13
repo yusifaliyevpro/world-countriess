@@ -45,9 +45,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   const { locale } = await params;
   validateLocale(locale);
-  const countriesData = await restCountries.getCountries({ fields: countriesPageFields });
-  if (!countriesData) notFound();
-  const { countries } = countriesData;
+  const { success, countries } = await restCountries.getCountries({ fields: countriesPageFields });
+  if (!success) notFound();
   const resultCount = Number(countries.length !== undefined ? countries.length : 0);
 
   return (
