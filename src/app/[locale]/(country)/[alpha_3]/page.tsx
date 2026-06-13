@@ -54,7 +54,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
   return (
     <main className="min-h-svh">
       <Breadcrumb
-        cca3={country.codes.alpha_3}
+        alpha_3={country.codes.alpha_3}
         countryName={countries.getName(country.codes.alpha_2, locale) || "Country Name"}
       />
       <CountryUI country={country} locale={locale} />
