@@ -1,9 +1,9 @@
 "use client";
 
+import { Accordion, AccordionItem } from "@heroui/accordion";
 import { CountryPicker } from "@yusifaliyevpro/countries";
 import * as motion from "motion/react-client";
 import { useTranslations } from "next-intl";
-import { Accordion, AccordionItem } from "@heroui/accordion";
 import { countryPageFields } from "@/lib/fields";
 import MapModal from "./Map";
 

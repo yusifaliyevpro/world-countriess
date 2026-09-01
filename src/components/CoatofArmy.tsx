@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Modal, ModalBody, ModalContent, useDisclosure } from "@heroui/modal";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 

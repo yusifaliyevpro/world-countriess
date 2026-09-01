@@ -7,10 +7,10 @@ import { Suspense } from "react";
 import Countries from "@/components/Countries";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
+import { routing, validateLocale } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import { countriesPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
-import { routing, validateLocale } from "@/i18n/routing";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;

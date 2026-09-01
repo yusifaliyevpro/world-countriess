@@ -1,8 +1,8 @@
 "use client";
 
+import { Input } from "@heroui/input";
 import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
-import { Input } from "@heroui/input";
 import { BiSearch } from "react-icons/bi";
 import { searchParams } from "@/lib/searchParams";
 

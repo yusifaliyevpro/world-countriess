@@ -3,10 +3,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  typedRoutes: true,
   cacheComponents: true,
+  partialPrefetching: true,
   experimental: {
-    rootParams: true,
+    useTypeScriptCli: true,
+    turbopackRustReactCompiler: true,
+    useOffline: true,
   },
 };
 

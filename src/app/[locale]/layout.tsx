@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Poppins } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Providers } from "@/components/Providers";
-import { sharedMetdata } from "@/lib/shared-metadata";
 import { validateLocale } from "@/i18n/routing";
+import { sharedMetdata } from "@/lib/shared-metadata";
 import "../globals.css";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["200", "300", "400", "500", "600", "700"] });

@@ -6,9 +6,9 @@ import { cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Locale } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import { countryPageFields } from "@/lib/fields";
-import { Locale } from "@/i18n/routing";
 import Share from "./Share";
 import { ShowMore } from "./ShowMore";
 

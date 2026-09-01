@@ -26,7 +26,7 @@ export default async function Image({ params }: CountryPageProps) {
   return new ImageResponse(
     <div tw="relative flex h-full w-full items-center justify-center">
       <div tw="absolute inset-0 flex">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {/* oxlint-disable-next-line @next/next/no-img-element */}
         <img
           alt={country.names.common}
           height={600}

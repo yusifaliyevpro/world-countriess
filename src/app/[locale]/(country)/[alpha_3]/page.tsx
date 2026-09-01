@@ -4,10 +4,10 @@ import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CountryUI } from "@/components/CountryUI";
+import { Locale, routing } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import { countryPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
-import { Locale, routing } from "@/i18n/routing";
 
 export type CountryPageProps = { params: Promise<{ alpha_3: string; locale: Locale }> };
 

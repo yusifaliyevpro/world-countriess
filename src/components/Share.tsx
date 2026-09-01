@@ -1,13 +1,13 @@
 "use client";
 
-import { CountryPicker } from "@yusifaliyevpro/countries/types";
-import countries from "i18n-iso-countries";
-import { motion } from "motion/react";
-import { useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
 import { addToast, closeAll } from "@heroui/toast";
+import { CountryPicker } from "@yusifaliyevpro/countries/types";
+import countries from "i18n-iso-countries";
+import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -20,9 +20,9 @@ import {
   BiLogoWhatsapp,
   BiSolidShareAlt,
 } from "react-icons/bi";
+import { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import { countryPageFields } from "@/lib/fields";
-import { Locale } from "@/i18n/routing";
 
 export default function Share({
   country,

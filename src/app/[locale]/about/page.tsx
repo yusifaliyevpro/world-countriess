@@ -8,8 +8,8 @@ import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaNpm, FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiVercel } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
-import { sharedMetdata } from "@/lib/shared-metadata";
 import { locales } from "@/i18n/routing";
+import { sharedMetdata } from "@/lib/shared-metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("About.MetaData");

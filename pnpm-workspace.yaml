@@ -1,14 +1,16 @@
+saveExact: true
+engineStrict: true
+minimumReleaseAge: 1440
+minimumReleaseAgeExcludePrune: true
+trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  - semver@6.3.1
+  - ua-parser-js@1.0.41
 allowBuilds:
   "@heroui/shared-utils": true
   "@parcel/watcher": true
   "@swc/core": true
   sharp: true
   unrs-resolver: true
-minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@yusifaliyevpro/countries"
-trustPolicy: no-downgrade
-trustPolicyExclude:
-  - semver@6.3.1
-  - eslint-import-resolver-typescript@3.10.1
-  - ua-parser-js@1.0.41

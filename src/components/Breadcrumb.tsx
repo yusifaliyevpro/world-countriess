@@ -1,6 +1,6 @@
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 import * as motion from "motion/react-client";
 import { getTranslations } from "next-intl/server";
-import { BreadcrumbItem, Breadcrumbs } from "@heroui/breadcrumbs";
 
 export async function Breadcrumb({ alpha_3, countryName }: { alpha_3: string; countryName: string }) {
   const t = await getTranslations("Header");

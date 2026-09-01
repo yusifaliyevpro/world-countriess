@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import {
   Navbar,
   NavbarBrand,
@@ -8,6 +7,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/navbar";
+import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
 import { FcGlobe } from "react-icons/fc";
