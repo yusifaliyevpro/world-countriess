@@ -12,7 +12,7 @@ import { cacheLife } from "next/cache";
 import { Suspense } from "react";
 import { FcGlobe } from "react-icons/fc";
 import { Link } from "@/i18n/navigation";
-import { Locale } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default async function Header({ locale }: { locale: Locale }) {

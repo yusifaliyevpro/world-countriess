@@ -1,9 +1,9 @@
 import * as motion from "motion/react-client";
-import { Metadata, Route } from "next";
+import type { Metadata, Route } from "next";
 import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
-import { JSX } from "react";
+import type { JSX } from "react";
 import { BiLogoTailwindCss } from "react-icons/bi";
 import { FaNpm, FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiVercel } from "react-icons/si";

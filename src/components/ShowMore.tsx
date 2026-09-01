@@ -1,10 +1,10 @@
 "use client";
 
 import { Accordion, AccordionItem } from "@heroui/accordion";
-import { CountryPicker } from "@yusifaliyevpro/countries";
+import type { CountryPicker } from "@yusifaliyevpro/countries";
 import * as motion from "motion/react-client";
 import { useTranslations } from "next-intl";
-import { countryPageFields } from "@/lib/fields";
+import type { countryPageFields } from "@/lib/fields";
 import MapModal from "./Map";
 
 export function ShowMore({ country }: { country: CountryPicker<typeof countryPageFields> }) {

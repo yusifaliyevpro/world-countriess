@@ -1,10 +1,10 @@
 import countries from "i18n-iso-countries";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CountryUI } from "@/components/CountryUI";
-import { Locale, routing } from "@/i18n/routing";
+import { type Locale, routing } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import { countryPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
 
   return {
     title: country.names.common,
-    description: `${country.names.official}`,
+    description: country.names.official,
     alternates: {
       canonical: `/countries/${country.codes.alpha_3}`,
       languages: {
@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
         "az-AZ": `/az/countries/${country.codes.alpha_3}`,
       },
     },
-    keywords: [`${country.names.common}`, `${country.names.official}`, ...sharedMetdata.keywords],
+    keywords: [country.names.common, country.names.official, ...sharedMetdata.keywords],
     openGraph: {
       title: `${country.names.common} | World Countriess`,
       url: `/${locale}/countries/${country.codes.alpha_3}`,
-      description: `${country.names.official}`,
+      description: country.names.official,
     },
   };
 }

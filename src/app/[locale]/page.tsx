@@ -1,5 +1,5 @@
 import * as motion from "motion/react-client";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
@@ -47,7 +47,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   validateLocale(locale);
   const { success, countries } = await restCountries.getCountries({ fields: countriesPageFields });
   if (!success) notFound();
-  const resultCount = Number(countries.length !== undefined ? countries.length : 0);
+  const resultCount = countries.length !== undefined ? countries.length : 0;
 
   return (
     <main className="mt-12 mb-10 min-h-svh">

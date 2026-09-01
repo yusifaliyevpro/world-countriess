@@ -4,7 +4,7 @@ import { Button } from "@heroui/button";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
 import { addToast, closeAll } from "@heroui/toast";
-import { CountryPicker } from "@yusifaliyevpro/countries/types";
+import type { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
@@ -20,9 +20,9 @@ import {
   BiLogoWhatsapp,
   BiSolidShareAlt,
 } from "react-icons/bi";
-import { Locale } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
-import { countryPageFields } from "@/lib/fields";
+import type { countryPageFields } from "@/lib/fields";
 
 export default function Share({
   country,
@@ -38,9 +38,9 @@ export default function Share({
   const [canShareFiles] = useState(
     () =>
       typeof window !== "undefined" &&
-      !!navigator.canShare?.({ files: [new File([], "test.png", { type: "image/png" })] }),
+      navigator.canShare?.({ files: [new File([], "test.png", { type: "image/png" })] }),
   );
-  const [canShareText] = useState(() => typeof window !== "undefined" && !!navigator.canShare?.({ text: "Test" }));
+  const [canShareText] = useState(() => typeof window !== "undefined" && navigator.canShare?.({ text: "Test" }));
 
   const ShareText = (s: string) => {
     return t("shareText", {
@@ -66,7 +66,7 @@ export default function Share({
     } else if (platform === "telegram") {
       router.push(`tg://msg?text=${encodeURIComponent(ShareText("**"))}`);
     } else if (platform === "copy") {
-      navigator.clipboard.writeText(ShareText(""));
+      void navigator.clipboard.writeText(ShareText(""));
       addToast({ title: t("copied"), color: "success" });
       if (navigator.vibrate) {
         navigator.vibrate(200);
@@ -77,7 +77,7 @@ export default function Share({
         text: ShareText(""),
       };
       addToast({ title: t("preparing"), timeout: 1000 });
-      navigator.share(shareData);
+      void navigator.share(shareData);
     }
   };
 

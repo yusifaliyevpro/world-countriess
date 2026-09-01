@@ -1,4 +1,4 @@
-import { CountryPicker } from "@yusifaliyevpro/countries/types";
+import type { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import * as motion from "motion/react-client";
 import { getTranslations } from "next-intl/server";
@@ -6,9 +6,9 @@ import { cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Locale } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
-import { countryPageFields } from "@/lib/fields";
+import type { countryPageFields } from "@/lib/fields";
 import Share from "./Share";
 import { ShowMore } from "./ShowMore";
 
@@ -33,12 +33,12 @@ export async function CountryUI({
   const borderCountries = (
     await Promise.all(
       country.borders?.map(async (code) => {
-        const { success, country } = await restCountries.getCountryByCode({
+        const { success, country: borderCountry } = await restCountries.getCountryByCode({
           alpha_3: code,
           fields: ["names", "codes"],
         });
 
-        return success ? [country] : [];
+        return success ? [borderCountry] : [];
       }),
     )
   ).flat();
@@ -64,6 +64,7 @@ export async function CountryUI({
     { label: t("population"), value: country.population.toLocaleString(locale) },
     { label: t("subRegion"), value: country.subregion || "—" },
     { label: t("topLevelDomain"), value: country.tlds?.join(", ") || "—" },
+    // oxlint-disable-next-line typescript/no-base-to-string
     { label: t("languages"), value: country.languages ? Object.values(country.languages).join(", ") : "—" },
   ];
 

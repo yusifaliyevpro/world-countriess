@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 import { restCountries } from "@/lib/countries";
-import { CountryPageProps } from "./page";
+import type { CountryPageProps } from "./page";
 
 export const runtime = "nodejs";
 export const alt = "Country OpenGraph";

@@ -37,7 +37,7 @@ export default function Search() {
           type="search"
           value={query}
           variant="bordered"
-          onChange={(e) => setQuery(e.target.value.replace(/['\[\]\/\\()]/g, ""))}
+          onChange={(e) => setQuery(e.target.value.replace(/['[\]/\\()]/g, ""))}
         />
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { CountryPicker } from "@yusifaliyevpro/countries/types";
+import type { CountryPicker } from "@yusifaliyevpro/countries/types";
 import Fuse from "fuse.js";
 import countriesTranslation from "i18n-iso-countries";
 import azeLocale from "i18n-iso-countries/langs/az.json";
@@ -13,8 +13,8 @@ import { useQueryState } from "nuqs";
 import { useMemo } from "react";
 import { useDebounce } from "use-debounce";
 import { Link } from "@/i18n/navigation";
-import { Locale } from "@/i18n/routing";
-import { countriesPageFields } from "@/lib/fields";
+import type { Locale } from "@/i18n/routing";
+import type { countriesPageFields } from "@/lib/fields";
 import { searchParams } from "@/lib/searchParams";
 
 type CountriesProps = {
@@ -51,8 +51,8 @@ export default function Countries({ countriess, locale }: CountriesProps) {
 
   const filteredCountries = (() => {
     if (!debouncedSearchQuery)
-      return [...countries]
-        .sort((a, b) => a.name.common.localeCompare(b.name.common))
+      return countries
+        .toSorted((a, b) => a.name.common.localeCompare(b.name.common))
         .slice((pageQuery - 1) * 30, pageQuery * 30);
 
     return fuse.search(debouncedSearchQuery).map((r) => r.item);
