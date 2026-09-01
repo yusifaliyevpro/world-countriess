@@ -3,7 +3,6 @@ import { ImageResponse } from "next/og";
 import { restCountries } from "@/lib/countries";
 import type { CountryPageProps } from "./page";
 
-export const runtime = "nodejs";
 export const alt = "Country OpenGraph";
 export const size = {
   width: 1200,

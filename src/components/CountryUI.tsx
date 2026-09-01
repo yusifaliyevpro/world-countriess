@@ -70,8 +70,10 @@ export async function CountryUI({
     { label: t("population"), value: country.population.toLocaleString(locale) },
     { label: t("subRegion"), value: country.subregion || "—" },
     { label: t("topLevelDomain"), value: country.tlds?.join(", ") || "—" },
-    // oxlint-disable-next-line typescript/no-base-to-string
-    { label: t("languages"), value: country.languages ? Object.values(country.languages).join(", ") : "—" },
+    {
+      label: t("languages"),
+      value: country.languages ? Object.values(country.languages.flatMap((l) => l.name)).join(", ") : "—",
+    },
   ];
 
   return (
