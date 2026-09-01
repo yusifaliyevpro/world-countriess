@@ -26,7 +26,7 @@ export async function CountryUI({
   locale: Locale;
 }) {
   "use cache";
-  cacheLife("weeks");
+  cacheLife("max");
 
   if (!country) notFound();
 

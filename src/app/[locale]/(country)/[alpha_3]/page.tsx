@@ -14,7 +14,7 @@ export type CountryPageProps = { params: Promise<{ alpha_3: string }> };
 
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   "use cache";
-  cacheLife("weeks");
+  cacheLife("max");
 
   const [locale, { alpha_3 }] = await Promise.all([getLocale(), params]);
   const { success, country } = await restCountries.getCountryByCode({ alpha_3, fields: countryPageFields });
@@ -46,7 +46,7 @@ export function generateStaticParams() {
 
 export default async function CountryPage({ params }: CountryPageProps) {
   "use cache";
-  cacheLife("weeks");
+  cacheLife("max");
 
   const [locale, { alpha_3 }] = await Promise.all([getLocale(), params]);
   const { success, country } = await restCountries.getCountryByCode({ alpha_3, fields: countryPageFields });

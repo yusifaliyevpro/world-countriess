@@ -2,7 +2,6 @@ import * as motion from "motion/react-client";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Countries from "@/components/Countries";
 import PaginationUI from "@/components/Pagination";
@@ -12,8 +11,8 @@ import { restCountries } from "@/lib/countries";
 import { countriesPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations();
   return {
     title: `${t("Home.MetaData.title")} | World Countriess`,
@@ -41,11 +40,18 @@ export function generateStaticParams() {
 
 export default async function Home() {
   "use cache";
-  cacheLife("weeks");
+  cacheLife("max");
 
   const locale = await getLocale();
   const { success, countries } = await restCountries.getCountries({ fields: countriesPageFields });
-  if (!success) notFound();
+  if (!success) {
+    return (
+      <div className="flex min-h-svh flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold">Error</h1>
+        <p className="mt-2 text-gray-600">Failed to fetch countries data.</p>
+      </div>
+    );
+  }
   const resultCount = countries.length !== undefined ? countries.length : 0;
 
   return (
