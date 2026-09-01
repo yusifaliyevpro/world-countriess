@@ -7,13 +7,12 @@ import azeLocale from "i18n-iso-countries/langs/az.json";
 import turLocale from "i18n-iso-countries/langs/tr.json";
 import { AnimatePresence } from "motion/react";
 import * as motion from "motion/react-client";
-import { useTranslations } from "next-intl";
+import { useTranslations, type Locale } from "next-intl";
 import Image from "next/image";
 import { useQueryState } from "nuqs";
 import { useMemo } from "react";
 import { useDebounce } from "use-debounce";
 import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
 import type { countriesPageFields } from "@/lib/fields";
 import { searchParams } from "@/lib/searchParams";
 
@@ -102,7 +101,9 @@ export default function Countries({ countriess, locale }: CountriesProps) {
                 </p>
                 <p className="text-md my-3 ml-8 text-left text-slate-900">
                   <span className="font-bold">{t("region")} </span>{" "}
-                  {t(`Continents.${country.region.toLowerCase()}`) || country.region}
+                  {/* oxlint-disable-next-line typescript/no-unsafe-type-assertion */}
+                  {t(`Continents.${country.region.toLowerCase() as Lowercase<typeof country.region>}`) ||
+                    country.region}
                 </p>
                 <p className="text-md my-3 ml-8 text-left text-slate-900">
                   <span className="font-bold">{t("population")} </span> {country.population.toLocaleString(locale)}

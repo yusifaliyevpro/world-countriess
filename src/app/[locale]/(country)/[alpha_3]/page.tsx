@@ -1,21 +1,22 @@
 import countries from "i18n-iso-countries";
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CountryUI } from "@/components/CountryUI";
-import { type Locale, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import { countryPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
 
-export type CountryPageProps = { params: Promise<{ alpha_3: string; locale: Locale }> };
+export type CountryPageProps = { params: Promise<{ alpha_3: string }> };
 
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   "use cache";
   cacheLife("weeks");
 
-  const { locale, alpha_3 } = await params;
+  const [locale, { alpha_3 }] = await Promise.all([getLocale(), params]);
   const { success, country } = await restCountries.getCountryByCode({ alpha_3, fields: countryPageFields });
   if (!success) return notFound();
 
@@ -47,7 +48,7 @@ export default async function CountryPage({ params }: CountryPageProps) {
   "use cache";
   cacheLife("weeks");
 
-  const { locale, alpha_3 } = await params;
+  const [locale, { alpha_3 }] = await Promise.all([getLocale(), params]);
   const { success, country } = await restCountries.getCountryByCode({ alpha_3, fields: countryPageFields });
   if (!success) return notFound();
 

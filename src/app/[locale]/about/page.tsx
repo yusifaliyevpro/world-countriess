@@ -9,6 +9,7 @@ import { FaNpm, FaReact } from "react-icons/fa";
 import { SiHeroui, SiNextdotjs, SiVercel } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 import { locales } from "@/i18n/routing";
+import type { TranslationKeys } from "@/i18n/types";
 import { sharedMetdata } from "@/lib/shared-metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -139,7 +140,7 @@ const tools: Tool[] = [
 ];
 
 type LinkItem = {
-  t: string;
+  t: TranslationKeys<"About">;
   linkText: string;
   link: Route;
 };

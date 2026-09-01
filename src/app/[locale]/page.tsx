@@ -1,13 +1,13 @@
 import * as motion from "motion/react-client";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Countries from "@/components/Countries";
 import PaginationUI from "@/components/Pagination";
 import Search from "@/components/Search";
-import { routing, validateLocale } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import { countriesPageFields } from "@/lib/fields";
 import { sharedMetdata } from "@/lib/shared-metadata";
@@ -39,12 +39,11 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function Home({ params }: PageProps<"/[locale]">) {
+export default async function Home() {
   "use cache";
   cacheLife("weeks");
 
-  const { locale } = await params;
-  validateLocale(locale);
+  const locale = await getLocale();
   const { success, countries } = await restCountries.getCountries({ fields: countriesPageFields });
   if (!success) notFound();
   const resultCount = countries.length !== undefined ? countries.length : 0;

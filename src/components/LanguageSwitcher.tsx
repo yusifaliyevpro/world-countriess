@@ -2,9 +2,9 @@
 
 import { Avatar } from "@heroui/avatar";
 import { Select, SelectItem } from "@heroui/select";
+import type { Locale } from "next-intl";
 import { usePathname } from "next/navigation";
 import { redirect } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
 
 export default function LanguageSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname().replace("az", "").replace("en", "").replace("tr", "");

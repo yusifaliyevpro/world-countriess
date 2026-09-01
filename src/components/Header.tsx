@@ -7,12 +7,13 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/navbar";
+import type { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
 import { FcGlobe } from "react-icons/fc";
 import { Link } from "@/i18n/navigation";
-import type { Locale } from "@/i18n/routing";
+import type { TranslationKeys } from "@/i18n/types";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default async function Header({ locale }: { locale: Locale }) {
@@ -70,7 +71,7 @@ export default async function Header({ locale }: { locale: Locale }) {
   );
 }
 
-const navigationRoutes = [
+const navigationRoutes: { path: string; name: TranslationKeys<"Header"> }[] = [
   {
     path: "/",
     name: "homePage",

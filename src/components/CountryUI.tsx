@@ -1,12 +1,12 @@
 import type { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import * as motion from "motion/react-client";
+import type { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { cacheLife } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { Locale } from "@/i18n/routing";
 import { restCountries } from "@/lib/countries";
 import type { countryPageFields } from "@/lib/fields";
 import Share from "./Share";
@@ -50,7 +50,13 @@ export async function CountryUI({
       label: t("nativeName"),
       value: country.names.native ? Object.values(country.names.native)[0]?.common : "—",
     },
-    { label: t("region"), value: t(`Continents.${country.region.toLowerCase()}`) || country.region },
+    {
+      label: t("region"),
+      value:
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+        t(`Continents.${country.region.toLowerCase()}` as `Continents.${Lowercase<typeof country.region>}`) ||
+        country.region,
+    },
     { label: t("capital"), value: country.capitals.flatMap((c) => c.name)?.join(", ") || "—" },
     {
       label: t("currencies"),

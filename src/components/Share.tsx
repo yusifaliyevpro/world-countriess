@@ -7,7 +7,7 @@ import { addToast, closeAll } from "@heroui/toast";
 import type { CountryPicker } from "@yusifaliyevpro/countries/types";
 import countries from "i18n-iso-countries";
 import { motion } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, type Locale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -20,17 +20,15 @@ import {
   BiLogoWhatsapp,
   BiSolidShareAlt,
 } from "react-icons/bi";
-import type { Locale } from "@/i18n/routing";
 import { BASE_URL } from "@/lib/constants";
 import type { countryPageFields } from "@/lib/fields";
 
-export default function Share({
-  country,
-  locale,
-}: {
+type ShareProps = {
   country: CountryPicker<typeof countryPageFields>;
   locale: Locale;
-}) {
+};
+
+export default function Share({ country, locale }: ShareProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
