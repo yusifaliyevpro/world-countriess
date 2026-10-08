@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   experimental: {
     useTypeScriptCli: true,
     turbopackRustReactCompiler: true,
-    useOffline: true,
+    agentUpgrade: "security",
   },
 };
 

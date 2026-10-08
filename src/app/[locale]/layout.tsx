@@ -13,6 +13,8 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["200", "300", "400", "500
 
 export const metadata: Metadata = sharedMetdata;
 
+export const ensureStatic = "navigation";
+
 export default async function RootLayout({ children }: LayoutProps<"/[locale]">) {
   const locale = await getLocale();
   const messages = await getMessages();
