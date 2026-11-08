@@ -12,3 +12,5 @@ allowBuilds:
   "@swc/core": true
   sharp: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - "@yusifaliyevpro/countries@5.2.7"
