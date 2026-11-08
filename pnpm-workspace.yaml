@@ -12,6 +12,3 @@ allowBuilds:
   "@swc/core": true
   sharp: true
   unrs-resolver: true
-minimumReleaseAgeExclude:
-  - "@yusifaliyevpro/countries"
-  - nuqs@2.10.2
